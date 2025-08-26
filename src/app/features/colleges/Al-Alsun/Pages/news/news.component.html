@@ -1,0 +1,128 @@
+<div class="news-page" dir="rtl">
+  <app-page-header 
+    title="الأخبار والإعلانات" 
+    [breadcrumbs]="breadcrumbs">
+  </app-page-header>
+  
+  <!-- Filter Section -->
+  <section class="filter-section py-2">
+    <div class="container">
+      <div class="card-modern">
+        <div class="section-header">
+          <i class="pi pi-filter"></i>
+          البحث وتصفية الأخبار
+        </div>
+        <div class="filter-content">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="search-box">
+                <i class="pi pi-search search-icon"></i>
+                <input 
+                  type="text" 
+                  class="form-control search-input" 
+                  placeholder="البحث في الأخبار..."
+                  [(ngModel)]="searchKeyword"
+                  (input)="onFilterChange()"
+                >
+              </div>
+            </div>
+            <div class="col-md-4">
+              <select 
+                class="form-select filter-select" 
+                [(ngModel)]="selectedYear"
+                (change)="onFilterChange()"
+              >
+                <option value="" >اختر السنة...</option>
+                <option *ngFor="let year of availableYears" [value]="year">
+                  {{ year }}
+                </option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <select 
+                class="form-select filter-select" 
+                [(ngModel)]="selectedMonth"
+                (change)="onFilterChange()"
+                aria-placeholder="اختر الشهر..."
+              >
+                <option value="" disabled selected hidden>اختر الشهر...</option>
+                <option *ngFor="let month of months; let i = index" [value]="i + 1">
+                  {{ month }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- News Tabs -->
+  <section class="news-tabs-section py-2">
+    <div class="container">
+      <div class="card-modern">
+        <!-- Tab Navigation -->
+        <div class="tab-navigation">
+          <button 
+            class="tab-button" 
+            [class.active]="currentCategory === 'students'"
+            (click)="currentCategory = 'students'"
+          >
+            <i class="pi pi-users"></i>
+            الطلاب
+          </button>
+          <button 
+            class="tab-button" 
+            [class.active]="currentCategory === 'postgraduate'"
+            (click)="currentCategory = 'postgraduate'"
+          >
+            <i class="pi pi-graduation-cap"></i>
+            الدراسات العليا
+          </button>
+          <button 
+            class="tab-button" 
+            [class.active]="currentCategory === 'board'"
+            (click)="currentCategory = 'board'"
+          >
+            <i class="pi pi-building"></i>
+            المجلس والإدارة
+          </button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+          <div class="news-grid">
+            <div class="news-card" *ngFor="let news of getFilteredNewsByCategory(currentCategory)">
+              <div class="news-image-container">
+                <img [src]="news.image" [alt]="news.title" class="news-image">
+                <div class="news-date-badge">
+                  {{ formatDate(news.date) }}
+                </div>
+              </div>
+              <div class="news-content">
+                <h3 class="news-title">{{ news.title }}</h3>
+                <p class="news-summary">{{ news.summary }}</p>
+                <div class="news-meta">
+                  <span class="news-author" *ngIf="news.author">
+                    <i class="pi pi-user"></i>
+                    {{ news.author }}
+                  </span>
+                  <div class="news-tags" *ngIf="news.tags && news.tags.length > 0">
+                    <span *ngFor="let tag of news.tags.slice(0, 2)" class="news-tag">
+                      {{ tag }}
+                    </span>
+                  </div>
+                </div>
+                <button class="read-more-btn" (click)="viewNewsDetails(news.id)">
+                  اقرأ المزيد <i class="pi pi-arrow-left"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-footer></app-footer>

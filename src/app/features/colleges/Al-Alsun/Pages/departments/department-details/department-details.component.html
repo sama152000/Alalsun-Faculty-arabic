@@ -1,0 +1,343 @@
+<div class="department-details-container" *ngIf="department" dir="rtl">
+  <!-- Back Button -->
+  <div class="container py-3">
+    
+  </div>
+
+  <!-- Main Content -->
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-12">
+        <!-- Department Navigation Tabs -->
+        <div class="nav-tabs-container">
+          <ul class="nav nav-tabs custom-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" 
+                      [class.active]="activeTab === 'overview'"
+                      (click)="setActiveTab('overview')"
+                      type="button">
+                <i class="pi pi-info-circle ms-2"></i>
+                نظرة عامة
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" 
+                      [class.active]="activeTab === 'programs'"
+                      (click)="setActiveTab('programs')"
+                      type="button">
+                <i class="pi pi-book ms-2"></i>
+                البرامج
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" 
+                      [class.active]="activeTab === 'faculty'"
+                      (click)="setActiveTab('faculty')"
+                      type="button">
+                <i class="pi pi-users ms-2"></i>
+                أعضاء هيئة التدريس
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" 
+                      [class.active]="activeTab === 'activities'"
+                      (click)="setActiveTab('activities')"
+                      type="button">
+                <i class="pi pi-star ms-2"></i>
+                الأنشطة
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" 
+                      [class.active]="activeTab === 'contact'"
+                      (click)="setActiveTab('contact')"
+                      type="button">
+                <i class="pi pi-phone ms-2"></i>
+                التواصل
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content mt-4">
+          <!-- Overview Tab -->
+          <div class="tab-pane" [class.active]="activeTab === 'overview'">
+            <div class="row">
+              <div class="col-lg-8">
+                <div class="content-section">
+                  <h3 class="section-header">عن القسم</h3>
+                  <p class="lead">{{department.overview}}</p>
+                  
+                  <div class="row g-4 mt-4">
+                    <div class="col-md-6">
+                      <div class="stat-card">
+                        <div class="stat-icon">
+                          <i class="pi pi-calendar text-white"></i>
+                        </div>
+                        <div class="stat-content">
+                          <h4>تاريخ التأسيس</h4>
+                          <p>{{department.established}}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="stat-card">
+                        <div class="stat-icon">
+                          <i class="pi pi-book text-white"></i>
+                        </div>
+                        <div class="stat-content">
+                          <h4>البرامج</h4>
+                          <p>{{department.programs.length}} برامج متاحة</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="stat-card">
+                        <div class="stat-icon">
+                          <i class="pi pi-users text-white"></i>
+                        </div>
+                        <div class="stat-content">
+                          <h4>أعضاء هيئة التدريس</h4>
+                          <p>{{department.faculty.length}} أساتذة</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="stat-card">
+                        <div class="stat-icon">
+                          <i class="pi pi-star text-white"></i>
+                        </div>
+                        <div class="stat-content">
+                          <h4>الأنشطة</h4>
+                          <p>{{department.activities.length}} فعاليات سنوية</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-lg-4">
+                <div class="card card-modern h-90">
+                  <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0 quick-contact-title">
+                      <i class="pi pi-phone ms-2"></i>
+                      التواصل السريع
+                    </h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="contact-item">
+                      <strong>رئيس القسم:</strong>
+                      <p>{{department.contact.headOfDepartment}}</p>
+                    </div>
+                    <div class="contact-item">
+                      <strong>موقع المكتب:</strong>
+                      <p>{{department.contact.office}}</p>
+                    </div>
+                    <div class="contact-item">
+                      <strong>البريد الإلكتروني:</strong>
+                      <p>
+                        <a [href]="'mailto:' + department.contact.email" class="text-primary">
+                          {{department.contact.email}}
+                        </a>
+                      </p>
+                    </div>
+                    <div class="contact-item" *ngIf="department.contact.phone">
+                      <strong>رقم الهاتف:</strong>
+                      <p>{{department.contact.phone}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Programs Tab -->
+          <div class="tab-pane" [class.active]="activeTab === 'programs'">
+            <div class="content-section">
+              <h3 class="section-header">البرامج الأكاديمية</h3>
+              <p class="text-muted mb-4">
+                اكتشف مجموعتنا الشاملة من برامج {{department.type === 'undergraduate' ? 'البكالوريوس' : 'الدراسات العليا'}} المصممة لتلبية المعايير الدولية.
+              </p>
+              
+              <div class="row">
+                <div class="col-lg-6 mb-4" *ngFor="let program of department.programs">
+                  <div class="card card-modern h-100">
+                    <div class="card-body">
+                      <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h5 class="card-title text-primary">{{program.name}}</h5>
+                        <span class="badge bg-gradient-gold text-dark">{{program.degree}}</span>
+                      </div>
+                      <p class="card-text text-muted mb-3">{{program.description}}</p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-muted">
+                          <i class="pi pi-clock ms-1"></i>
+                          المدة: {{program.duration}}
+                        </span>
+                        <button class="btn btn-outline-primary-custom btn-sm">
+                          معرفة المزيد
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Faculty Tab -->
+          <div class="tab-pane" [class.active]="activeTab === 'faculty'">
+            <div class="content-section">
+              <h3 class="section-header">أعضاء هيئة التدريس</h3>
+              <p class="text-muted mb-4">
+                تعرف على أعضاء هيئة التدريس الموقرين لدينا الذين يجلبون الخبرة والتفاني في التعليم.
+              </p>
+              
+              <div class="row">
+                <div class="col-lg-6 mb-4" *ngFor="let faculty of department.faculty">
+                  <div class="card card-modern">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center">
+                        <div class="faculty-photo ms-3">
+                          <img [src]="faculty.photo || 'https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg'" 
+                               [alt]="faculty.name" 
+                               class="faculty-image">
+                        </div>
+                        <div class="faculty-info">
+                          <h5 class="mb-1 text-primary">{{faculty.name}}</h5>
+                          <p class="text-muted mb-1">{{faculty.title}}</p>
+                          <p class="text-primary mb-2"><small>{{faculty.specialization}}</small></p>
+                          <a [href]="'mailto:' + faculty.email" class="btn btn-outline-primary-custom btn-sm">
+                            <i class="pi pi-envelope ms-1"></i>
+                            تواصل
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activities Tab -->
+          <div class="tab-pane" [class.active]="activeTab === 'activities'">
+            <div class="content-section">
+              <h3 class="section-header">أنشطة القسم</h3>
+              <p class="text-muted mb-4">
+                تابع أحدث فعالياتنا، مؤتمراتنا، والأنشطة الأكاديمية.
+              </p>
+              
+              <div class="row">
+                <div class="col-lg-6 mb-4" *ngFor="let activity of department.activities">
+                  <div class="card card-modern">
+                    <div class="activity-image-container" *ngIf="activity.image">
+                      <img [src]="activity.image" [alt]="activity.title" class="activity-image">
+                    </div>
+                    <div class="card-body">
+                      <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h5 class="card-title text-primary">{{activity.title}}</h5>
+                        <span class="badge bg-light text-dark">
+                          {{activity.date | date:'dd MMMM y':'ar-EG'}}
+                        </span>
+                      </div>
+                      <p class="card-text text-muted">{{activity.description}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Tab -->
+          <div class="tab-pane" [class.active]="activeTab === 'contact'">
+            <div class="content-section">
+              <h3 class="section-header">معلومات التواصل</h3>
+              
+              <div class="row align-items-stretch">
+                <div class="col-lg-8">
+                  <div class="card card-modern h-100">
+                    <div class="card-body p-4">
+                      <div class="row g-4">
+                        <div class="col-md-6">
+                          <div class="contact-detail">
+                            <div class="contact-icon">
+                              <i class="pi pi-envelope text-white"></i>
+                            </div>
+                            <div>
+                              <h6>البريد الإلكتروني للقسم</h6>
+                              <a [href]="'mailto:' + department.contact.email" class="text-primary">
+                                {{department.contact.email}}
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-6" *ngIf="department.contact.phone">
+                          <div class="contact-detail">
+                            <div class="contact-icon">
+                              <i class="pi pi-phone text-white"></i>
+                            </div>
+                            <div>
+                              <h6>رقم الهاتف</h6>
+                              <span>{{department.contact.phone}}</span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                          <div class="contact-detail">
+                            <div class="contact-icon">
+                              <i class="pi pi-map-marker text-white"></i>
+                            </div>
+                            <div>
+                              <h6>موقع المكتب</h6>
+                              <span>{{department.contact.office}}</span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                          <div class="contact-detail">
+                            <div class="contact-icon">
+                              <i class="pi pi-user text-white"></i>
+                            </div>
+                            <div>
+                              <h6>رئيس القسم</h6>
+                              <span>{{department.contact.headOfDepartment}}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-lg-4">
+                  <div class="card card-modern bg-gradient-primary text-white h-100">
+                    <div class="card-body text-center p-4">
+                      <i class="pi pi-graduation-cap" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                      <h5>هل أنت جاهز للانضمام إلينا؟</h5>
+                      <p class="mb-4">
+                        قسم {{department.shortName}} في كلية الألسن – جامعة الأقصر ملتزم بإعداد خريجين مؤهلين تأهيلاً عاليًا.
+                      </p>
+                      <button class="btn btn-outline-light">
+                        قدم الآن
+                        <i class="pi pi-arrow-left ms-2"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-outline-primary-custom mb-4" (click)="goBack()">
+      <i class="pi pi-arrow-right ms-2"></i>
+      العودة إلى الأقسام
+    </button>
+  </div>
+</div>

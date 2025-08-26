@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { HeroComponent } from '../Home/Hero-section/Hero-section.component';
 import { DeanMessageComponent } from '../Home/dean-message/dean-message.component';
-// import { LatestNewsComponent } from './latest-news/latest-news/latest-news.component';
-// import { VisionMissionComponent } from './vision-mission/vision-mission/vision-mission.component';
-// import { DepartmentsComponent } from './departments/departments/departments.component';
-// import { PostgraduateComponent } from './postgraduate/postgraduate/postgraduate.component';
+import { LatestNewsComponent } from '../Home/latest-news/latest-news.component';
+import { VisionMissionComponent } from '../Home/vision-mission/vision-mission.component';
+import { DepartmentsComponent } from '../Home/departments/departments.component';
+import { PostgraduateComponent } from '../Home/postgraduate/postgraduate.component';
 // import { StudentActivitiesComponent } from './student-activities/student-activities/student-activities.component';
-// import { QuickStatsComponent } from './quick-stats/quick-stats/quick-stats.component';
+import { QuickStatsComponent } from '../Home/quick-stats/quick-stats.component';
 import { ContactLocationComponent } from '../Home/contact-location/contact-location.component';
 import { NavbarComponent } from "../shared/navbar/navbar.component";
 import { FooterComponent } from "../shared/footer/footer.component";
@@ -17,12 +17,12 @@ import { FooterComponent } from "../shared/footer/footer.component";
   imports: [
     HeroComponent,
     DeanMessageComponent,
-    // LatestNewsComponent,
-    // VisionMissionComponent,
-    // DepartmentsComponent,
-    // PostgraduateComponent,
+    LatestNewsComponent,
+    VisionMissionComponent,
+    DepartmentsComponent,
+    PostgraduateComponent,
     // StudentActivitiesComponent,
-    // QuickStatsComponent,
+    QuickStatsComponent,
     ContactLocationComponent,
     NavbarComponent,
     FooterComponent
