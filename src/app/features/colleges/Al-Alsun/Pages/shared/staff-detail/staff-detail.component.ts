@@ -14,7 +14,6 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule,
     PageHeaderComponent,
       FooterComponent,
-      NavbarComponent
   ],
   templateUrl: './staff-detail.component.html',
   styleUrls: ['./staff-detail.component.css']

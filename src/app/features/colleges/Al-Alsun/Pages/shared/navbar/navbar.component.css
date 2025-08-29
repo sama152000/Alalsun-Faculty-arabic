@@ -133,12 +133,24 @@
       border: none;
       border-radius: 8px;
       box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      right: 0;
+      left: auto !important;
+      text-align: right;
     }
 
     .dropdown-item {
       color: rgba(255,255,255,0.9);
       padding: 0.8rem 1.5rem;
       transition: all 0.3s ease;
+      text-align: right;
+      display: flex;
+      justify-content: right;
+      align-items: center;
+    }
+
+    .dropdown-item i {
+      margin-left: 0.5rem;
+      margin-right: 0;
     }
 
     .dropdown-item:hover {

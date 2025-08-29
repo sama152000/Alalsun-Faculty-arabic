@@ -8,7 +8,6 @@ import { PostgraduateComponent } from '../Home/postgraduate/postgraduate.compone
 // import { StudentActivitiesComponent } from './student-activities/student-activities/student-activities.component';
 import { QuickStatsComponent } from '../Home/quick-stats/quick-stats.component';
 import { ContactLocationComponent } from '../Home/contact-location/contact-location.component';
-import { NavbarComponent } from "../shared/navbar/navbar.component";
 import { FooterComponent } from "../shared/footer/footer.component";
 
 @Component({
@@ -24,7 +23,6 @@ import { FooterComponent } from "../shared/footer/footer.component";
     // StudentActivitiesComponent,
     QuickStatsComponent,
     ContactLocationComponent,
-    NavbarComponent,
     FooterComponent
 ],
   styleUrls: ['./Home.component.css']

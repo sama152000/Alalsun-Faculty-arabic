@@ -4,7 +4,7 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [ButtonModule, RouterLink, RouterOutlet],
+  imports: [ButtonModule, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
