@@ -90,33 +90,33 @@
 
 .nav-link {
     color: rgba(255,255,255,0.9) !important;
-    padding: var(--standard-padding) var(--standard-padding) !important; /* Updated to use standard padding */
-      border-left: 1px solid rgba(255,255,255,0.1);
-      transition: all 0.3s ease;
-      font-weight: 500;
-      position: relative;
-    }
+    padding: var(--standard-padding) var(--standard-padding) !important;
+    border-left: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+    font-weight: 500;
+    position: relative;
+}
 
-    .nav-link:hover {
-      background: rgba(255,255,255,0.1);
-      color: #ffffff !important;
-      transform: translateY(-1px);
-    }
+.nav-link:hover, .nav-link.active {
+    background: rgba(255,255,255,0.1);
+    color: #ffffff !important;
+    transform: translateY(-1px);
+}
 
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #ffffff;
-      transition: width 0.3s ease;
-    }
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 2px;
+    background: #ffffff;
+    transition: width 0.3s ease;
+}
 
-    .nav-link:hover::after {
-      width: 100%;
-    }
+.nav-link:hover::after, .nav-link.active::after {
+    width: 100%;
+}
 
     .navbar-toggler {
       border: 1px solid rgba(255,255,255,0.3);
@@ -144,18 +144,23 @@
       transition: all 0.3s ease;
       text-align: right;
       display: flex;
-      justify-content: right;
+      justify-content: flex-start;
       align-items: center;
+      flex-direction: row-reverse;
+      border-radius: 4px;
+      margin: 0.2rem;
     }
 
     .dropdown-item i {
-      margin-left: 0.5rem;
+      margin-left: 0.75rem;
       margin-right: 0;
+      font-size: 1.1rem;
     }
 
-    .dropdown-item:hover {
+    .dropdown-item:hover, .dropdown-item.active {
       background: rgba(255,255,255,0.1);
       color: #ffffff;
+      transform: translateX(-5px);
     }
 
     @media (max-width: 768px) {
@@ -432,6 +437,6 @@
 }
 
 .university-website-btn:hover {
-  background-color: var(--primary-color);
-  color: #ffffff;
+   background: var(--primary-darkred-hover, #a62302);
+  border-color: var(--primary-darkred-hover, #a62302);
 }

@@ -78,22 +78,24 @@
           <div class="collapse navbar-collapse" [class.show]="!isNavbarCollapsed" id="navbarNav">
             <ul class="navbar-nav w-100 justify-content-start">
               <li class="nav-item">
-                <a class="nav-link" routerLink="home"><i class="pi pi-home me-2 p-1"></i>الرئيسية</a>
+                <a class="nav-link" routerLink="home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                  <i class="pi pi-home ms-2"></i>الرئيسية
+                </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" routerLink="about">عن الكلية</a>
+                <a class="nav-link" routerLink="about" routerLinkActive="active">عن الكلية</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" routerLink="departments">الأقسام</a>
+                <a class="nav-link" routerLink="departments" routerLinkActive="active">الأقسام</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" routerLink="staff">الهيئة التدريسية</a>
+                <a class="nav-link" routerLink="staff" routerLinkActive="active">الهيئة التدريسية</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" routerLink="news">الأخبار</a>
+                <a class="nav-link" routerLink="news" routerLinkActive="active">الأخبار</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" routerLink="contact">تواصل معنا</a>
+                <a class="nav-link" routerLink="contact" routerLinkActive="active">تواصل معنا</a>
               </li>
                 <li class="nav-item dropdown" [class.show]="isSectorsDropdownOpen">
                   <a class="nav-link dropdown-toggle" 
@@ -105,20 +107,20 @@
                   </a>
                   <ul class="dropdown-menu" [class.show]="isSectorsDropdownOpen">
                     <li>
-                      <a class="dropdown-item" routerLink="sectors/education-students" (click)="onSectorSelect()">
-                        <i class="pi pi-users me-2"></i>
+                      <a class="dropdown-item" routerLink="sectors/education-students" routerLinkActive="active" (click)="onSectorSelect()">
+                        <i class="pi pi-users"></i>
                         قطاع التعليم والطلاب
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" routerLink="sectors/postgraduate-research" (click)="onSectorSelect()">
-                        <i class="pi pi-graduation-cap me-2"></i>
+                      <a class="dropdown-item" routerLink="sectors/postgraduate-research" routerLinkActive="active" (click)="onSectorSelect()">
+                        <i class="pi pi-graduation-cap"></i>
                         قطاع الدراسات العليا والبحوث
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" routerLink="sectors/community-environmental" (click)="onSectorSelect()">
-                        <i class="pi pi-globe me-2"></i>
+                      <a class="dropdown-item" routerLink="sectors/community-environmental" routerLinkActive="active" (click)="onSectorSelect()">
+                        <i class="pi pi-globe"></i>
                         قطاع خدمة المجتمع وتنمية البيئة
                       </a>
                     </li>
