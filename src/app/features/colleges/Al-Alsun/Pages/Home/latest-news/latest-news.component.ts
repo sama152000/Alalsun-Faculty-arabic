@@ -4,12 +4,13 @@
  import { FacultyIntro } from '../../../model/faculty-intro.model';
  import { NewsService } from '../../../Services/home-news.service.service';
  import { FacultyIntroService } from '../../../Services/faculty-intro.service';
+import { FormsModule } from '@angular/forms';
 
 
  @Component({
    selector: 'app-latest-news',
    standalone: true,
-   imports: [CommonModule, DatePipe],
+   imports: [CommonModule, FormsModule],
    templateUrl: './latest-news.component.html',
    styleUrls: ['./latest-news.component.css']
  })

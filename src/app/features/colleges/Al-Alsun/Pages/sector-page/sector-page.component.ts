@@ -5,11 +5,12 @@ import { PageHeaderComponent } from '../shared/page-header/page-header.component
 import { SectorsService } from '../../Services/sectors.service';
 import { SectorData, SectorDepartment, SectorService, NewsItem, MediaItem } from '../../model/sector.model';
 import { FooterComponent } from "../shared/footer/footer.component";
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-sector-page',
   standalone: true,
-  imports: [CommonModule, PageHeaderComponent, FooterComponent],
+  imports: [CommonModule, PageHeaderComponent, FooterComponent, FormsModule],
   templateUrl: './sector-page.component.html',
   styleUrls: ['./sector-page.component.css']
 })

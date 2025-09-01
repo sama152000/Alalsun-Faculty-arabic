@@ -86,41 +86,13 @@
       <div class="col-lg-4 col-md-5">
         <div class="clock-card">
           <div class="card-header">
-            <h4 class="card-title mb-0">
-              <i class="pi pi-clock me-2"></i>
-              اخر التحديثات
-            </h4>
-            <span class="status-indicator">
-              <span class="status-dot"></span>
-في الوقت الحالي            </span>
+          <h4 class="card-title mb-0">
+              <i class="pi pi-video me-2"></i>
+فيديو تعريفي             </h4>
           </div>
           
           <div class="clock-container">
-            <div class="clock-display">
-              <div class="clock-icon-wrapper">
-                <i class="pi pi-clock clock-icon"></i>
-                <div class="clock-info">
-                  <div class="clock-label">الوقت الحالي</div>
-                  <div class="clock-time">{{ currentTime | date:'medium' }}</div>
-                  <div class="clock-timezone">{{ timezone }}</div>
-                </div>
-              </div>
-              
-              <div class="quick-stats">
-                <div class="stat-item">
-                  <span class="stat-number">{{ totalNews }}</span>
-                  <span class="stat-label">اجمالي الاخبار</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-number">{{ todayNews }}</span>
-                  <span class="stat-label">اليوم</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-number">{{ weeklyNews }}</span>
-                  <span class="stat-label">هذا الأسبوع</span>
-                </div>
-              </div>
-            </div>
+            <iframe class="video-iframe" src="https://www.youtube.com/embed/h9jWu98KpGA?si=kuBXUsfzfaBto0vn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
         </div>
       </div>

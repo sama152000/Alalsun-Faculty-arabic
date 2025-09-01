@@ -1,6 +1,6 @@
 <section class="hero-banner">
   <div class="banner-overlay">
-    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="false" (slide.bs.carousel)="onSlideChange($event)">
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" data-bs-pause="false" (slide.bs.carousel)="onSlideChange($event)">
       <div class="carousel-inner">
         <div *ngFor="let slide of slides; let i = index"
              [ngClass]="{'carousel-item': true, 'active': i === 0}"
@@ -43,7 +43,7 @@
       <div class="banner-actions" *ngIf="getCurrentSlide()?.showButton && !isContentChanging">
         <a [routerLink]="getCurrentSlide()?.buttonLink || '/about'" class="btn btn-primary btn-darkred">
           {{getCurrentSlide()?.buttonText || 'اقرأ المزيد'}}
-          <i class="pi pi-arrow-right ms-2"></i>
+          <i class="pi pi-arrow-left ms-2"></i>
         </a>
       </div>
     </div>

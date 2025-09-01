@@ -1,188 +1,213 @@
 <app-page-header 
-  [title]="selectedDepartment ? selectedDepartment.name : 'الأقسام الأكاديمية'"
+  [title]="selectedDepartment ? selectedDepartment.name : 'اقسام الكلية '" 
   [breadcrumbs]="breadcrumbs">
 </app-page-header>
-<div class="department-page" dir="rtl">
 
-  <!-- Department List -->
-  <div class="container-fluid py-5" *ngIf="!selectedDepartment">
-    <!-- Header Section -->
-    <div class="row mb-5">
-      <div class="col-12 text-center">
-        <h1 class="section-title fade-in-up">الأقسام الأكاديمية</h1>
-        <p class="section-subtitle fade-in-up">
-          استكشف مجموعتنا المتنوعة من البرامج الجامعية والدراسات العليا في كلية الألسن
-        </p>
-      </div>
+<div class="department-page">
+  <div class="container-fluid">
+    <!-- Sidebar Toggle Button for Mobile -->
+    <div class="d-lg-none mb-3">
+      <button class="btn btn-primary-gradient" (click)="toggleSidebar()">
+        <i class="pi pi-bars me-2"></i>
+        {{ sidebarCollapsed ? 'Show Departments' : 'Hide Departments' }}
+      </button>
     </div>
 
-    <!-- Filter Bar Section -->
-    <div class="row mb-4 col-lg-12">
-      <div class="col-lg-10 mx-auto">
-        <div class="card card-modern">
-          <div class="card-body p-4">
-            <div class="row g-3 align-items-center">
-              <!-- Department Type Filter -->
-              <div class="col-md-4">
-                <label class="form-label fw-semibold text-primary">نوع القسم</label>
-                <select class="form-select" [(ngModel)]="selectedType" (change)="applyFilters()">
-                  <option value="">جميع الأقسام</option>
-                  <option value="undergraduate">بكالوريوس</option>
-                  <option value="postgraduate">دراسات عليا</option>
-                </select>
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-lg-3 col-md-4" [ngClass]="{'d-none': (sidebarCollapsed && isMobile) || selectedDepartment}">
+        <div class="sidebar card card-modern">
+          <div class="card-header bg-primary text-white">
+            <h5 class="card-title mb-0">الاقسام</h5>
+          </div>
+          <div class="card-body p-0">
+            <ul class="nav flex-column">
+              <li class="nav-item" *ngFor="let department of allDepartments; trackBy: trackByDepartmentId">
+                <a class="nav-link" 
+                   [routerLink]="['/departments', department.id]"
+                   [class.active]="selectedDepartment?.id === department.id"
+                   (click)="selectDepartment(department)">
+                  <i [class]="department.icon" class="me-2"></i>
+                  {{ department.shortName }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div [ngClass]="{'col-lg-9 col-md-8': !selectedDepartment, 'col-12': selectedDepartment}">
+        <!-- Department List -->
+        <div class="py-5" *ngIf="!selectedDepartment">
+          <!-- Filter Bar Section -->
+          <div class="row mb-4">
+            <div class="col-lg-12 mx-auto">
+              <div class="card card-modern">
+                <div class="card-body p-4">
+                  <div class="row g-3 align-items-center">
+                    <!-- Department Type Filter -->
+                    <div class="col-md-4">
+                      <label class="form-label fw-semibold text-primary">نوع القسم</label>
+                      <select class="form-select" [(ngModel)]="selectedType" (change)="applyFilters()">
+                        <option value="">جميع الأقسام</option>
+                        <option value="undergraduate">بكالوريوس</option>
+                        <option value="postgraduate">دراسات عليا</option>
+                      </select>
+                    </div>
+                    
+                    <!-- Language Filter -->
+                    <div class="col-md-4">
+                      <label class="form-label fw-semibold text-primary">اللغة</label>
+                      <select class="form-select" [(ngModel)]="selectedLanguage" (change)="applyFilters()">
+                        <option value="">جميع اللغات</option>
+                        <option value="English">الإنجليزية</option>
+                        <option value="French">الفرنسية</option>
+                        <option value="German">الألمانية</option>
+                        <option value="Arabic">العربية</option>
+                        <option value="Chinese">الصينية</option>
+                        <option value="Italian">الإيطالية</option>
+                        <option value="Spanish">الإسبانية</option>
+                        <option value="Russian">الروسية</option>
+                      </select>
+                    </div>
+                    
+                    <!-- Quick Search -->
+                    <div class="col-md-4">
+                      <label class="form-label fw-semibold text-primary">البحث السريع</label>
+                      <div class="position-relative">
+                        <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="البحث حسب القسم أو المقرر أو الكلية..."
+                          [(ngModel)]="searchQuery"
+                          (input)="applyFilters()">
+                        <i class="pi pi-search position-absolute" 
+                           style="right: 15px; top: 50%; transform: translateY(-50%); color: #6c757d;"></i>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Clear Filters Button -->
+                  <div class="row mt-3" *ngIf="hasActiveFilters()">
+                    <div class="col-12 text-center">
+                      <button class="btn btn-outline-secondary" (click)="clearFilters()">
+                        <i class="pi pi-times me-2"></i>
+مسح جميع الفلاتر                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
-              
-              <!-- Language Filter -->
-              <div class="col-md-4">
-                <label class="form-label fw-semibold text-primary">اللغة</label>
-                <select class="form-select" [(ngModel)]="selectedLanguage" (change)="applyFilters()">
-                  <option value="">جميع اللغات</option>
-                  <option value="English">الإنجليزية</option>
-                  <option value="French">الفرنسية</option>
-                  <option value="German">الألمانية</option>
-                  <option value="Arabic">العربية</option>
-                  <option value="Chinese">الصينية</option>
-                  <option value="Italian">الإيطالية</option>
-                  <option value="Spanish">الإسبانية</option>
-                  <option value="Russian">الروسية</option>
-                </select>
+            </div>
+          </div>
+
+          <!-- Results Summary -->
+          <div class="row mb-3" *ngIf="filteredDepartments.length > 0">
+            <div class="col-12">
+              <div class="d-flex justify-content-between align-items-center">
+                <p class="text-muted mb-0">
+                  عرض {{filteredDepartments.length}} من {{allDepartments.length}} الأقسام
+                </p>
+                <div class="d-flex gap-2">
+                  <span class="badge bg-primary" *ngIf="getUndergraduateCount() > 0">
+                    {{getUndergraduateCount()}} بكالوريوس
+                  </span>
+                  <span class="badge bg-gold text-dark" *ngIf="getPostgraduateCount() > 0">
+                    {{getPostgraduateCount()}} دراسات عليا
+                  </span>
+                </div>
               </div>
-              
-              <!-- Quick Search -->
-              <div class="col-md-4">
-                <label class="form-label fw-semibold text-primary">البحث السريع</label>
+            </div>
+          </div>
+
+          <!-- Departments Grid -->
+          <div class="row" *ngIf="filteredDepartments.length > 0; else noResults">
+            <div class="col-lg-6 col-xl-4 mb-4" *ngFor="let department of filteredDepartments; trackBy: trackByDepartmentId">
+              <div class="card card-modern h-100 department-card">
                 <div class="position-relative">
-                  <input 
-                    type="text" 
-                    class="form-control" 
-                    placeholder="البحث في الأقسام..."
-                    [(ngModel)]="searchQuery"
-                    (input)="applyFilters()">
-                  <i class="pi pi-search position-absolute" 
-                     style="left: 15px; top: 50%; transform: translateY(-50%); color: #6c757d;"></i>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Clear Filters Button -->
-            <div class="row mt-3" *ngIf="hasActiveFilters()">
-              <div class="col-12 text-center">
-                <button class="btn btn-outline-secondary" (click)="clearFilters()">
-                  <i class="pi pi-times me-2"></i>
-                  مسح جميع الفلاتر
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Results Summary -->
-    <div class="row mb-3" *ngIf="filteredDepartments.length > 0">
-      <div class="col-12">
-        <div class="d-flex justify-content-between align-items-center">
-          <p class="text-muted mb-0">
-            عرض {{filteredDepartments.length}} من أصل {{allDepartments.length}} قسمًا
-          </p>
-          <div class="d-flex gap-2">
-            <span class="badge bg-primary" *ngIf="getUndergraduateCount() > 0">
-              {{getUndergraduateCount()}} بكالوريوس
-            </span>
-            <span class="badge bg-gold text-dark" *ngIf="getPostgraduateCount() > 0">
-              {{getPostgraduateCount()}} دراسات عليا
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Departments Grid -->
-    <div class="row" *ngIf="filteredDepartments.length > 0; else noResults">
-      <div class="col-lg-6 col-xl-4 mb-4" *ngFor="let department of filteredDepartments; trackBy: trackByDepartmentId">
-        <div class="card card-modern h-100 department-card" (click)="selectDepartment(department)">
-          <div class="position-relative">
-            <img [src]="department.image" 
-                 class="card-img-top" 
-                 [alt]="department.name"
-                 style="height: 200px; object-fit: cover;">
-            <div class="position-absolute top-0 end-0 p-3">
-              <span class="badge" 
-                    [class]="department.type === 'undergraduate' ? 'bg-primary' : 'bg-gradient-gold text-dark'">
-                <i [class]="department.icon" class="ms-1"></i>
-                {{department.shortName}}
-              </span>
-            </div>
-            <div class="position-absolute top-0 start-0 p-3">
-              <span class="badge bg-light text-dark">
-                تأسس {{department.established}}
-              </span>
-            </div>
-          </div>
-          
-          <div class="card-body p-4 d-flex flex-column">
-            <h4 class="card-title text-primary mb-3">{{department.name}}</h4>
-            <p class="card-text text-muted mb-3 flex-grow-1" style="font-size: 0.9rem; line-height: 1.6;">
-              {{department.overview | slice:0:120}}...
-            </p>
-            
-            <div class="row g-3 mb-4">
-              <div class="col-6">
-                <div class="d-flex align-items-center">
-                  <i class="pi pi-book text-gold me-2 p-3"></i>
-                  <div>
-                    <small class="text-muted d-block">البرامج</small>
-                    <strong>{{department.programs.length}}</strong>
+                  <img [src]="department.image" 
+                       class="card-img-top" 
+                       [alt]="department.name"
+                       style="height: 200px; object-fit: cover;">
+                  <div class="position-absolute top-0 start-0 p-3">
+                    <span class="badge" 
+                          [class]="department.type === 'undergraduate' ? 'bg-primary' : 'bg-gradient-gold text-dark'">
+                      <i [class]="department.icon" class="me-1"></i>
+                      {{department.shortName}}
+                    </span>
+                  </div>
+                  <div class="position-absolute top-0 end-0 p-3">
+                    <span class="badge bg-light text-dark">
+                      Est. {{department.established}}
+                    </span>
                   </div>
                 </div>
-              </div>
-              <div class="col-6">
-                <div class="d-flex align-items-center">
-                  <i class="pi pi-users text-gold me-2 p-3"></i>
-                  <div>
-                    <small class="text-muted d-block">أعضاء هيئة التدريس</small>
-                    <strong>{{department.faculty.length}}</strong>
+                
+                <div class="card-body p-4 d-flex flex-column">
+                  <h4 class="card-title text-primary mb-3">{{department.name}}</h4>
+                  <p class="card-text text-muted mb-3 flex-grow-1" style="font-size: 0.9rem; line-height: 1.6;">
+                    {{department.overview | slice:0:120}}...
+                  </p>
+                  
+                  <div class="row g-3 mb-4">
+                    <div class="col-6">
+                      <div class="d-flex align-items-center">
+                        <i class="pi pi-book text-gold me-2  p-3"></i>
+                        <div>
+                          <small class="text-muted d-block">البرامج </small>
+                          <strong>{{department.programs.length}}</strong>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="d-flex align-items-center">
+                        <i class="pi pi-users text-gold me-2 p-3"></i>
+                        <div>
+                          <small class="text-muted d-block">الكلية</small>
+                          <strong>{{department.faculty.length}}</strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="mt-auto">
+                    <a [routerLink]="['/departments', department.id]" class="btn btn-primary-gradient w-100">
+                      استكشاف القسم
+                      <i class="pi pi-arrow-left me-2"></i>
+                    </a>
                   </div>
                 </div>
               </div>
             </div>
-            
-            <div class="mt-auto">
-              <button class="btn btn-primary-gradient w-100">
-                <i class="pi pi-arrow-right me-2"></i>
-                استكشاف القسم
+          </div>
+
+          <!-- No Results Template -->
+          <ng-template #noResults>
+            <div class="text-center py-5">
+              <div class="mb-4">
+                <i class="pi pi-search text-muted" style="font-size: 4rem;"></i>
+              </div>
+              <h4 class="text-muted mb-3">لا توجد أقسام</h4>
+              <p class="text-muted mb-4">
+                لم نتمكن من العثور على أي أقسام تتطابق مع معايير التصفية الخاصة بك.<br>
+                حاول تعديل عوامل التصفية الخاصة بك أو مسحها لرؤية جميع الأقسام.
+              </p>
+              <button class="btn btn-outline-primary-custom" (click)="clearFilters()">
+                <i class="pi pi-refresh me-2"></i>
+                مسح جميع الفلاتر
               </button>
             </div>
-          </div>
+          </ng-template>
         </div>
+
+        <!-- Department Details -->
+        <app-department-details 
+          *ngIf="selectedDepartment" 
+          [department]="selectedDepartment" 
+          (backToList)="onBackToList()">
+        </app-department-details>
       </div>
     </div>
-
-    <!-- No Results Template -->
-    <ng-template #noResults>
-      <div class="text-center py-5">
-        <div class="mb-4">
-          <i class="pi pi-search text-muted" style="font-size: 4rem;"></i>
-        </div>
-        <h4 class="text-muted mb-3">لم يتم العثور على أقسام</h4>
-        <p class="text-muted mb-4">
-          لم نتمكن من العثور على أي أقسام تتطابق مع معايير البحث الخاصة بك.<br>
-          حاول تعديل الفلاتر أو مسحها لعرض جميع الأقسام.
-        </p>
-        <button class="btn btn-outline-primary-custom" (click)="clearFilters()">
-          <i class="pi pi-refresh me-2"></i>
-          مسح جميع الفلاتر
-        </button>
-      </div>
-    </ng-template>
   </div>
-
-  <!-- Department Details -->
-  <app-department-details 
-    *ngIf="selectedDepartment" 
-    [department]="selectedDepartment" 
-    (backToList)="onBackToList()">
-  </app-department-details>
-
 </div>
 <app-footer></app-footer>
