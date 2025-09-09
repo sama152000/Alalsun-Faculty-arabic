@@ -22,7 +22,7 @@ export class StaffDetailComponent implements OnInit {
   staffMember: StaffMember | undefined;
   loading = true;
   breadcrumbs: Array<{label: string, url?: string}> = [
-    { label: 'اعضاء هيئة التدريس', url: '/alalsun-faculty/staff' }
+    { label: 'اعضاء هيئة التدريس', url: '/staff' }
   ];
 
   constructor(
@@ -50,6 +50,6 @@ export class StaffDetailComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/alalsun-faculty/staff']);
+    this.router.navigate(['/staff']);
   }
 }

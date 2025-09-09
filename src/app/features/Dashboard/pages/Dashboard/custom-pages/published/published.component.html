@@ -1,0 +1,72 @@
+<div class="published-container">
+  <div class="published-header">
+    <h2>الصفحات المنشورة</h2>
+    <p>الصفحات النشطة المرئية على موقعك الإلكتروني</p>
+  </div>
+
+  <div class="published-content">
+    <div *ngIf="publishedPages.length === 0" class="no-published">
+      <i class="pi pi-globe no-published-icon"></i>
+      <h3>لا توجد صفحات منشورة</h3>
+      <p>لم تنشر أي صفحات مخصصة بعد.</p>
+      <button 
+        class="btn-primary-custom"
+        (click)="viewDrafts()"
+      >
+        <i class="pi pi-file"></i>
+        عرض المسودات
+      </button>
+    </div>
+
+    <div *ngIf="publishedPages.length > 0" class="published-list">
+      <div *ngFor="let page of publishedPages" class="published-card">
+        <div class="published-info">
+          <div class="published-icon">
+            <i [class]="getTemplateIcon(page.template)"></i>
+          </div>
+          <div class="published-details">
+            <h3>{{ page.title }}</h3>
+            <p class="published-route">{{ page.route }}</p>
+            <p class="published-template">القالب: {{ getTemplateName(page.template) }}</p>
+            <div class="published-meta">
+              <span class="published-date">
+                <i class="pi pi-calendar"></i>
+                تم النشر: {{ formatDate(page.updatedAt) }}
+              </span>
+              <span class="published-status">
+                <i class="pi pi-check-circle"></i>
+                نشط
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="published-actions">
+          <button 
+            class="btn-view"
+            (click)="viewPage(page)"
+            title="عرض الصفحة النشطة"
+          >
+            <i class="pi pi-external-link"></i>
+            عرض النشطة
+          </button>
+          <button 
+            class="btn-unpublish"
+            (click)="unpublishPage(page.id)"
+            title="إلغاء النشر"
+          >
+            <i class="pi pi-times"></i>
+            إلغاء النشر
+          </button>
+          <button 
+            class="btn-delete"
+            (click)="deletePage(page.id)"
+            title="حذف الصفحة"
+          >
+            <i class="pi pi-trash"></i>
+            حذف
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

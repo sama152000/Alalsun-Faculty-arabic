@@ -9,13 +9,12 @@ export class ContactService {
 
   private contactInfo: ContactInfo = {
     address: {
-      arabic: 'الأقصر – شرق السكة الحديد، شارع جامع عبد الكريم – بجوار الإدارة التعليمية.',
-      english: 'الأقصر – شرق السكة الحديد، شارع جامع عبد الكريم – بجوار الإدارة التعليمية.'
+      english: 'الأقصر – شرق السكة الحديد، شارع جمال عبد الكريم – بجوار إدارة التربية والتعليم.'
     },
     phone: '(+20) 095-2356555',
     email: 'alsun@luxor.edu.eg',
     website: 'luxor.edu.eg/alsun',
-    facebook: 'كلية الألسن - جامعة الأقصر',
+    facebook: 'كلية الألسن – جامعة الأقصر',
     location: {
       lat: 25.687243,
       lng: 32.639637
@@ -24,7 +23,7 @@ export class ContactService {
 
   private directContacts: DirectContact[] = [
     {
-      department: 'شئون الطلاب',
+      department: 'شؤون الطلاب',
       email: 'student.affairs@luxor.edu.eg',
       description: 'التسجيل الأكاديمي، خدمات الطلاب، والاستفسارات العامة',
       icon: 'pi pi-users'
@@ -38,13 +37,13 @@ export class ContactService {
     {
       department: 'خدمة المجتمع',
       email: 'community@luxor.edu.eg',
-      description: 'برامج التوعية المجتمعية والشراكات',
+      description: 'برامج التفاعل المجتمعي والشراكات',
       icon: 'pi pi-heart'
     },
     {
-      department: 'الملاحظات والاقتراحات',
+      department: 'التغذية والاقتراحات',
       email: 'feedback@luxor.edu.eg',
-      description: 'ملاحظاتكم تساعدنا على تحسين خدماتنا',
+      description: 'تساعدنا آرائكم على تحسين خدماتنا',
       icon: 'pi pi-comment'
     }
   ];
@@ -58,7 +57,7 @@ export class ContactService {
   }
 
   submitContactForm(form: ContactForm): Observable<ContactSubmissionResult> {
-    // Simulate API call with delay
+    // محاكاة استدعاء API مع تأخير
     return of({
       success: true,
       message: 'تم إرسال رسالتك بنجاح. سنتواصل معك قريبًا.'
@@ -69,7 +68,7 @@ export class ContactService {
     const errors: { [key: string]: string } = {};
 
     if (!form.fullName || form.fullName.trim().length < 2) {
-      errors['fullName'] = 'يجب أن يتكون الاسم الكامل من حرفين على الأقل';
+      errors['fullName'] = 'يجب أن يحتوي الاسم الكامل على الأقل 2 حرف';
     }
 
     if (!form.email || !this.isValidEmail(form.email)) {
@@ -77,11 +76,11 @@ export class ContactService {
     }
 
     if (!form.subject || form.subject.trim().length < 3) {
-      errors['subject'] = 'يجب أن يتكون الموضوع من ثلاثة أحرف على الأقل';
+      errors['subject'] = 'يجب أن يحتوي الموضوع على الأقل 3 أحرف';
     }
 
     if (!form.message || form.message.trim().length < 10) {
-      errors['message'] = 'يجب أن تتكون الرسالة من عشرة أحرف على الأقل';
+      errors['message'] = 'يجب أن يحتوي الرسالة على الأقل 10 أحرف';
     }
 
     return errors;

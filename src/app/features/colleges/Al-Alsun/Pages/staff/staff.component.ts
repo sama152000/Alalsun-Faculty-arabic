@@ -23,7 +23,7 @@ import { FormsModule } from '@angular/forms';
 export class StaffComponent implements OnInit {
 
   breadcrumbs = [
-    { label: 'اعضاء هيئة التدريس', url: '/alalsun-faculty/staff' }
+    { label: 'اعضاء هيئة التدريس', url: '/staff' }
   ];
 
   allStaff: StaffMember[] = [];
@@ -72,6 +72,6 @@ export class StaffComponent implements OnInit {
   }
 
   viewStaffDetails(id: number) {
-    this.router.navigate(['/alalsun-faculty/staff', id]);   
+    this.router.navigate(['/staff', id]);   
   }
 }

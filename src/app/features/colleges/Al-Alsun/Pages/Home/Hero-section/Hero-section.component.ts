@@ -1,8 +1,8 @@
 import { Component, HostListener, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
-import { HeroSlide } from '../../../model/hero-slide.model';
-import { HeroService } from '../../../Services/hero.service';
+import { HeroSlide } from '../../../../Al-Alsun/model/hero-slide.model';
+import { HeroService } from '../../../../Al-Alsun/Services/hero.service';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, ButtonModule, FormsModule, RouterModule],
   templateUrl: './Hero-Section.component.html',
-  styleUrls: ['./Hero-Section.component.css']
+  styleUrls: ['./Hero-section.component.css']
 })
 export class HeroComponent implements AfterViewInit {
   slides: HeroSlide[] = [];

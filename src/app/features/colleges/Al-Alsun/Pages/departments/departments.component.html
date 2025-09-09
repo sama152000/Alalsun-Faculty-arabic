@@ -1,5 +1,5 @@
 <app-page-header 
-  [title]="selectedDepartment ? selectedDepartment.name : 'اقسام الكلية '" 
+  [title]="selectedDepartment ? selectedDepartment.name : 'الاقسام في كلية الالسن '" 
   [breadcrumbs]="breadcrumbs">
 </app-page-header>
 
@@ -9,7 +9,7 @@
     <div class="d-lg-none mb-3">
       <button class="btn btn-primary-gradient" (click)="toggleSidebar()">
         <i class="pi pi-bars me-2"></i>
-        {{ sidebarCollapsed ? 'Show Departments' : 'Hide Departments' }}
+        {{ sidebarCollapsed ? 'اظهار الاقسام' : 'اخفاء الاقسام' }}
       </button>
     </div>
 
@@ -48,11 +48,11 @@
                   <div class="row g-3 align-items-center">
                     <!-- Department Type Filter -->
                     <div class="col-md-4">
-                      <label class="form-label fw-semibold text-primary">نوع القسم</label>
+                      <label class="form-label fw-semibold text-primary">انواع الاقسام </label>
                       <select class="form-select" [(ngModel)]="selectedType" (change)="applyFilters()">
-                        <option value="">جميع الأقسام</option>
-                        <option value="undergraduate">بكالوريوس</option>
-                        <option value="postgraduate">دراسات عليا</option>
+                        <option value="">كل الاقسام</option>
+                        <option value="undergraduate">طلاب البكالوريوس</option>
+                        <option value="postgraduate">الخريجين</option>
                       </select>
                     </div>
                     
@@ -60,14 +60,14 @@
                     <div class="col-md-4">
                       <label class="form-label fw-semibold text-primary">اللغة</label>
                       <select class="form-select" [(ngModel)]="selectedLanguage" (change)="applyFilters()">
-                        <option value="">جميع اللغات</option>
-                        <option value="English">الإنجليزية</option>
+                        <option value="">كل اللغات</option>
+                        <option value="English">الانجليزية</option>
                         <option value="French">الفرنسية</option>
-                        <option value="German">الألمانية</option>
+                        <option value="German">الالمانية</option>
                         <option value="Arabic">العربية</option>
                         <option value="Chinese">الصينية</option>
-                        <option value="Italian">الإيطالية</option>
-                        <option value="Spanish">الإسبانية</option>
+                        <option value="Italian">الايطالية</option>
+                        <option value="Spanish">الاسبانية</option>
                         <option value="Russian">الروسية</option>
                       </select>
                     </div>
@@ -79,7 +79,7 @@
                         <input 
                           type="text" 
                           class="form-control" 
-                          placeholder="البحث حسب القسم أو المقرر أو الكلية..."
+                          placeholder="Search by department, course, or faculty..."
                           [(ngModel)]="searchQuery"
                           (input)="applyFilters()">
                         <i class="pi pi-search position-absolute" 
@@ -93,7 +93,8 @@
                     <div class="col-12 text-center">
                       <button class="btn btn-outline-secondary" (click)="clearFilters()">
                         <i class="pi pi-times me-2"></i>
-مسح جميع الفلاتر                      </button>
+                        ازاله كل التصنيفات
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -106,14 +107,14 @@
             <div class="col-12">
               <div class="d-flex justify-content-between align-items-center">
                 <p class="text-muted mb-0">
-                  عرض {{filteredDepartments.length}} من {{allDepartments.length}} الأقسام
+                  عرض {{filteredDepartments.length}} من {{allDepartments.length}} الاقسام
                 </p>
                 <div class="d-flex gap-2">
                   <span class="badge bg-primary" *ngIf="getUndergraduateCount() > 0">
-                    {{getUndergraduateCount()}} بكالوريوس
+                    {{getUndergraduateCount()}} الطلاب
                   </span>
                   <span class="badge bg-gold text-dark" *ngIf="getPostgraduateCount() > 0">
-                    {{getPostgraduateCount()}} دراسات عليا
+                    {{getPostgraduateCount()}} الدراسات العليا
                   </span>
                 </div>
               </div>
@@ -152,16 +153,16 @@
                   <div class="row g-3 mb-4">
                     <div class="col-6">
                       <div class="d-flex align-items-center">
-                        <i class="pi pi-book text-gold me-2  p-3"></i>
+                        <i class="pi pi-book text-gold me-2"></i>
                         <div>
-                          <small class="text-muted d-block">البرامج </small>
+                          <small class="text-muted d-block">البرامج</small>
                           <strong>{{department.programs.length}}</strong>
                         </div>
                       </div>
                     </div>
                     <div class="col-6">
                       <div class="d-flex align-items-center">
-                        <i class="pi pi-users text-gold me-2 p-3"></i>
+                        <i class="pi pi-users text-gold me-2"></i>
                         <div>
                           <small class="text-muted d-block">الكلية</small>
                           <strong>{{department.faculty.length}}</strong>
@@ -172,9 +173,8 @@
                   
                   <div class="mt-auto">
                     <a [routerLink]="['/departments', department.id]" class="btn btn-primary-gradient w-100">
-                      استكشاف القسم
-                      <i class="pi pi-arrow-left me-2"></i>
-                    </a>
+                      <i class="pi pi-arrow-right me-2"></i>
+استكشاف البرامج                    </a>
                   </div>
                 </div>
               </div>
@@ -187,15 +187,13 @@
               <div class="mb-4">
                 <i class="pi pi-search text-muted" style="font-size: 4rem;"></i>
               </div>
-              <h4 class="text-muted mb-3">لا توجد أقسام</h4>
+              <h4 class="text-muted mb-3">لا يوجد اقسام متاحة</h4>
               <p class="text-muted mb-4">
                 لم نتمكن من العثور على أي أقسام تتطابق مع معايير التصفية الخاصة بك.<br>
-                حاول تعديل عوامل التصفية الخاصة بك أو مسحها لرؤية جميع الأقسام.
-              </p>
+حاول ضبط الفلاتر الخاصة بك أو مسحها لرؤية جميع الأقسام.              </p>
               <button class="btn btn-outline-primary-custom" (click)="clearFilters()">
                 <i class="pi pi-refresh me-2"></i>
-                مسح جميع الفلاتر
-              </button>
+ازاله كل التصنيفات               </button>
             </div>
           </ng-template>
         </div>

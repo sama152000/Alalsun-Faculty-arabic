@@ -8,19 +8,19 @@
           <li class="nav-item" role="presentation">
             <button class="nav-link active fw-semibold" id="vision-tab" data-bs-toggle="tab" 
                     data-bs-target="#vision" type="button" role="tab" aria-controls="vision" aria-selected="true">
-              <i class="pi pi-eye me-2"></i>الرؤية
+              <i class="pi pi-eye p-2 me-2"></i>الرؤية
             </button>
           </li>
           <li class="nav-item" role="presentation">
             <button class="nav-link fw-semibold" id="mission-tab" data-bs-toggle="tab" 
                     data-bs-target="#mission" type="button" role="tab" aria-controls="mission" aria-selected="false">
-              <i class="pi pi-flag me-2"></i>الرسالة
+              <i class="pi pi-flag  p-2 me-2"></i>الرسالة
             </button>
           </li>
           <li class="nav-item" role="presentation">
             <button class="nav-link fw-semibold" id="objectives-tab" data-bs-toggle="tab" 
                     data-bs-target="#objectives" type="button" role="tab" aria-controls="objectives" aria-selected="false">
-              <i class="pi pi-star me-2"></i>الأهداف
+              <i class="pi pi-star  p-2 me-2"></i>الأهداف
             </button>
           </li>
         </ul>
@@ -58,7 +58,7 @@
               <div class="row">
                 <div class="col-lg-6 mb-2" *ngFor="let objective of objectives">
                   <div class="objective-card d-flex align-items-start p-2 bg-white rounded-3 shadow-sm h-100">
-                    <i [class]="objective.icon + ' text-primary fs-4 me-2 mt-1'"></i>
+                    <i [class]="objective.icon + '  p-2 text-primary fs-4 me-2 mt-1'"></i>
                     <p class="text-dark mb-0">{{objective.text}}</p>
                   </div>
                 </div>

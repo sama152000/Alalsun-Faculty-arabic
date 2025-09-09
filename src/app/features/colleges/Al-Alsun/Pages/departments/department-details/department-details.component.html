@@ -1,27 +1,27 @@
 <div class="department-details-container" *ngIf="department">
   <div class="container-fluid">
     <div class="row gx-4">
-      <!-- Sidebar -->
+      <!-- الشريط الجانبي -->
       <div class="col-lg-3 col-md-4 sidebar-column">
-        <!-- Sidebar Toggle Button for Mobile -->
+        <!-- زر تبديل الشريط الجانبي للجوال -->
         <div class="d-lg-none mb-3">
           <button class="btn btn-primary-gradient w-100" (click)="toggleSidebar()">
             <i class="pi pi-bars me-2"></i>
-            {{ sidebarCollapsed ? 'Show Departments' : 'Hide Departments' }}
+            {{ sidebarCollapsed ? 'عرض الأقسام' : 'إخفاء الأقسام' }}
           </button>
         </div>
 
         <div class="department-sidebar" [ngClass]="{'d-none d-lg-block': sidebarCollapsed && isMobile}">
           <div class="sidebar-card">
             <div class="sidebar-header">
-              <h5 class="sidebar-title mb-0">الاقسام </h5>
+              <h5 class="sidebar-title mb-0">الأقسام</h5>
             </div>
             <div class="sidebar-body">
               <ul class="nav flex-column">
                 <li class="nav-item" *ngFor="let dept of departments; trackBy: trackByDepartmentId">
                   <a class="nav-link"
                      [routerLink]="['/departments', dept.id]"
-                     [class.active]="department?.id === dept.id">
+                     [class.active]="department.id === dept.id">
                     <i [class]="dept.icon" class="me-2"></i>
                     {{ dept.shortName }}
                   </a>
@@ -32,17 +32,17 @@
         </div>
       </div>
 
-      <!-- Main Content -->
+      <!-- المحتوى الرئيسي -->
       <div [ngClass]="{'col-lg-9 col-md-8': true}">
-        <!-- Back Button -->
+        <!-- زر العودة -->
         <!-- <div class="py-3">
           <button class="btn btn-outline-primary-custom mb-4" (click)="goBack()">
             <i class="pi pi-arrow-left me-2"></i>
-            Back to Departments
+            العودة إلى الأقسام
           </button>
         </div> -->
 
-        <!-- Department Navigation Tabs -->
+        <!-- علامات التبويب لتوصيل القسم -->
         <div class="nav-tabs-container">
           <ul class="nav nav-tabs custom-tabs" role="tablist">
             <li class="nav-item" role="presentation">
@@ -87,20 +87,20 @@
                       (click)="setActiveTab('contact')"
                       type="button">
                 <i class="pi pi-phone me-2"></i>
-                الاتصال
+                التواصل
               </button>
             </li>
           </ul>
         </div>
 
-        <!-- Tab Content -->
+        <!-- محتوى التبويب -->
         <div class="tab-content mt-4">
-          <!-- Overview Tab -->
+          <!-- تبويب النظرة العامة -->
           <div class="tab-pane" [class.active]="activeTab === 'overview'">
             <div class="row">
               <div class="col-lg-8">
                 <div class="content-section">
-                  <h3 class="section-header">معلومات عن القسم</h3>
+                  <h3 class="section-header">حول القسم</h3>
                   <p class="lead">{{department.overview}}</p>
                   
                   <div class="row g-4 mt-4">
@@ -110,7 +110,7 @@
                           <i class="pi pi-calendar text-white"></i>
                         </div>
                         <div class="stat-content">
-                          <h4>تاريخ التأسيس</h4>
+                          <h4>التأسيس</h4>
                           <p>{{department.established}}</p>
                         </div>
                       </div>
@@ -122,7 +122,7 @@
                         </div>
                         <div class="stat-content">
                           <h4>البرامج</h4>
-                          <p>{{department.programs.length}} متاح</p>
+                          <p>{{department.programs.length}} متاحة</p>
                         </div>
                       </div>
                     </div>
@@ -133,7 +133,7 @@
                         </div>
                         <div class="stat-content">
                           <h4>أعضاء هيئة التدريس</h4>
-                          <p>{{department.faculty.length}} أستاذ</p>
+                          <p>{{department.faculty.length}} أساتذة</p>
                         </div>
                       </div>
                     </div>
@@ -144,7 +144,7 @@
                         </div>
                         <div class="stat-content">
                           <h4>الأنشطة</h4>
-                          <p>{{department.activities.length}} حدث سنوي</p>
+                          <p>{{department.activities.length}} فعاليات سنوية</p>
                         </div>
                       </div>
                     </div>
@@ -157,7 +157,7 @@
                   <div class="card-header bg-primary text-white">
                     <h5 class="card-title mb-0 quick-contact-title">
                       <i class="pi pi-phone me-2"></i>
-                      الاتصال السريع
+                      معلومات التواصل السريع
                     </h5>
                   </div>
                   <div class="card-body">
@@ -178,7 +178,7 @@
                       </p>
                     </div>
                     <div class="contact-item" *ngIf="department.contact.phone">
-                      <strong>الهاتف:</strong>
+                      <strong>رقم الهاتف:</strong>
                       <p>{{department.contact.phone}}</p>
                     </div>
                   </div>
@@ -187,12 +187,12 @@
             </div>
           </div>
 
-          <!-- Programs Tab -->
+          <!-- تبويب البرامج -->
           <div class="tab-pane" [class.active]="activeTab === 'programs'">
             <div class="content-section">
               <h3 class="section-header">البرامج الأكاديمية</h3>
               <p class="text-muted mb-4">
-                اكتشف مجموعة شاملة من برامج {{department.type}} المصممة لتلبية المعايير الدولية.
+                اكتشف مجموعتنا الشاملة من برامج {{department.type}} التي صُممت لتلبية المعايير الدولية.
               </p>
               
               <div class="row">
@@ -210,7 +210,7 @@
                           المدة: {{program.duration}}
                         </span>
                         <button class="btn btn-outline-primary-custom btn-sm">
-                          المزيد
+                          تعرف على المزيد
                         </button>
                       </div>
                     </div>
@@ -220,12 +220,12 @@
             </div>
           </div>
 
-          <!-- Faculty Tab -->
+          <!-- تبويب أعضاء هيئة التدريس -->
           <div class="tab-pane" [class.active]="activeTab === 'faculty'">
             <div class="content-section">
-              <h3 class="section-header">أعضاء هيئة التدريس</h3>
+              <h3 class="section-header">هيئتنا التدريسية</h3>
               <p class="text-muted mb-4">
-                تعرف على أعضاء هيئة التدريس المتميزين لدينا الذين يجلبون الخبرة والتفاني في التعليم.
+                تعرف على أعضاء هيئتنا التدريسية المميزين الذين يجلبون الخبرة والتفاني للتعليم.
               </p>
               
               <div class="row">
@@ -233,7 +233,7 @@
                   <div class="card card-modern">
                     <div class="card-body">
                       <div class="d-flex align-items-center">
-                        <div class="faculty-photo me-3 p-4">
+                        <div class="faculty-photo me-3">
                           <img [src]="faculty.photo || 'https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg'" 
                                [alt]="faculty.name" 
                                class="faculty-image">
@@ -244,7 +244,7 @@
                           <p class="text-primary mb-2"><small>{{faculty.specialization}}</small></p>
                           <a [href]="'mailto:' + faculty.email" class="btn btn-outline-primary-custom btn-sm">
                             <i class="pi pi-envelope me-1"></i>
-                            اتصل
+                            تواصل
                           </a>
                         </div>
                       </div>
@@ -255,12 +255,12 @@
             </div>
           </div>
 
-          <!-- Activities Tab -->
+          <!-- تبويب الأنشطة -->
           <div class="tab-pane" [class.active]="activeTab === 'activities'">
             <div class="content-section">
               <h3 class="section-header">أنشطة القسم</h3>
               <p class="text-muted mb-4">
-                ابق على اطلاع بأحدث الفعاليات والمؤتمرات والأنشطة الأكاديمية لدينا.
+                تابع آخر أخبارنا، المؤتمرات، والأنشطة الأكاديمية.
               </p>
               
               <div class="row">
@@ -284,11 +284,11 @@
             </div>
           </div>
 
-          <!-- Contact Tab -->
+          <!-- تبويب التواصل -->
           <div class="tab-pane" [class.active]="activeTab === 'contact'">
             <div class="content-section">
-              <h3 class="section-header">معلومات الاتصال</h3>
-
+              <h3 class="section-header">معلومات التواصل</h3>
+              
               <div class="row align-items-stretch">
                 <div class="col-lg-8">
                   <div class="card card-modern h-100">
@@ -300,7 +300,7 @@
                               <i class="pi pi-envelope text-white"></i>
                             </div>
                             <div>
-                              <h6>البريد الإلكتروني للقسم</h6>
+                              <h6>بريد القسم الإلكتروني</h6>
                               <a [href]="'mailto:' + department.contact.email" class="text-primary">
                                 {{department.contact.email}}
                               </a>
@@ -352,12 +352,12 @@
                   <div class="card card-modern bg-gradient-primary text-white h-100">
                     <div class="card-body text-center p-4">
                       <i class="pi pi-graduation-cap" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-                      <h5>هل أنت مستعد للانضمام إلينا؟</h5>
+                      <h5>هل أنت جاهز للانضمام إلينا؟</h5>
                       <p class="mb-4">
-                        قسم {{department.shortName}} في كلية الألسن - جامعة الأقصر ملتزم بإعداد خريجين مؤهلين تأهيلاً عالياً.
+                        القسم {{department.shortName}} في كلية الألسن - جامعة الأقصر ملتزم بتأهيل خريجين مؤهلين بدرجة عالية.
                       </p>
                       <button class="btn btn-outline-light">
-                        قدم الآن
+                        تقديم الآن
                         <i class="pi pi-arrow-right ms-2"></i>
                       </button>
                     </div>
