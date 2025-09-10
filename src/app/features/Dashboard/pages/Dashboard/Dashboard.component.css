@@ -122,6 +122,9 @@
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease;
+  background-color: #f8f9fa;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .submenu.expanded {
@@ -133,19 +136,25 @@
 }
 
 .submenu a {
+  display: block;
   padding: 0.5rem 1.5rem 0.5rem 3rem;
   font-size: 0.9rem;
   color: #6c757d;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
 }
 
 .submenu a:hover {
-  background-color: #f1f3f5;
+  background-color: #e9ecef;
+  color: #495057;
 }
 
 .submenu a.active {
   background-color: rgba(12, 104, 92, 0.1);
   color: var(--primary-color);
-  border-left-color: var(--accent-gold);
+  border-left: 3px solid var(--accent-gold);
 }
 
 /* Nested Submenu Styles */

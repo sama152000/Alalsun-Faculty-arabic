@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MenuService } from '../../../Services/menu.service';
-import { FacultyInfo, NavbarItem, Submenu, HeaderType } from '../../../model/menu.model';
+import { FacultyInfoService } from '../../../Services/faculty-info.service';
+import { NavbarItem, Submenu, HeaderType } from '../../../model/menu.model';
+import { FacultyInfo } from '../../../model/faculty-info.model';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -20,21 +22,18 @@ export class NavbarComponent implements OnInit {
   isDropdownOpen: { [key: string]: boolean } = {};
   isSectorsDropdownOpen = false;
 
-  constructor(private menuService: MenuService) {}
+  constructor(private menuService: MenuService, private facultyInfoService: FacultyInfoService) {}
 
   ngOnInit(): void {
-    // Fetch TOP_NAV
-    this.menuService.getActiveHeader(HeaderType.TOP_NAV).subscribe((menu) => {
-      if (menu && menu.data) {
-        this.facultyInfo = (menu.data as any).facultyInfo;
-      }
+    // Fetch faculty info from FacultyInfoService (now includes logo from backend)
+    this.facultyInfoService.getFacultyInfo().subscribe((info) => {
+      this.facultyInfo = info;
     });
 
     // Fetch MAIN_NAV with custom pages in More+ dropdown
     this.menuService.getActiveHeader(HeaderType.MAIN_NAV).subscribe((menu) => {
       if (menu && menu.data) {
         this.navbarItems = (menu.data as any).navbarItems || [];
-        // Initialize dropdown states
         this.navbarItems.forEach((item) => {
           if (item.children) {
             this.isDropdownOpen[item.label] = false;
@@ -43,7 +42,6 @@ export class NavbarComponent implements OnInit {
       }
     });
 
-    // Fetch SUBMENU
     this.menuService.getActiveHeader(HeaderType.SUBMENU).subscribe((menu) => {
       if (menu && menu.data) {
         this.submenu = (menu.data as any).submenu;

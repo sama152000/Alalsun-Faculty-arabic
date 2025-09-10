@@ -1,8 +1,8 @@
 export interface MenuItem {
   id: number;
-  name: string; // e.g., "Main Header 2025", "Default Footer"
+  name: string;
   type: MenuType;
-  headerType?: HeaderType; // Only for headers
+  headerType?: HeaderType;
   isActive: boolean;
   data: HeaderData | FooterData;
 }
@@ -19,7 +19,6 @@ export enum HeaderType {
 }
 
 export interface FacultyInfo {
-  logoUrl: string;
   name: string;
   subtitle: string;
   universityName: string;
@@ -28,8 +27,9 @@ export interface FacultyInfo {
 
 export interface NavbarItem {
   label: string;
-  icon?: string;
   route?: string;
+  target?: string;
+  parentId?: number | null;
   children?: NavbarItem[];
 }
 
@@ -46,14 +46,22 @@ export interface Submenu {
 }
 
 export interface HeaderData {
-  facultyInfo?: FacultyInfo; // For TopNav
-  navbarItems?: NavbarItem[]; // For MainNav
-  submenu?: Submenu; // For Submenu
+  facultyInfo?: FacultyInfo;
+  navbarItems?: NavbarItem[];
+  submenu?: Submenu;
 }
 
 export interface FooterLink {
   title: string;
   url: string;
+  target?: string;
+}
+
+export interface FooterSocialLink {
+  platform: string;
+  url: string;
+  icon: string;
+  target?: string;
 }
 
 export interface FooterSection {
@@ -62,14 +70,19 @@ export interface FooterSection {
 }
 
 export interface FooterData {
-  logoIcon: string;
   title: string;
   subtitle: string;
   tagline: string;
-  socialLinks: { platform: string; url: string; icon: string }[];
+  socialLinks: FooterSocialLink[];
   quickLinks: FooterSection;
   academicLinks: FooterSection;
   resourceLinks: FooterSection;
   copyright: string;
   contactMethods: ContactInfo;
+}
+
+export interface SocialMediaIcon {
+  label: string;
+  value: string;
+  color: string;
 }

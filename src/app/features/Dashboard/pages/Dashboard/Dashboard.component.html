@@ -45,11 +45,12 @@
                 <li><a routerLink="news" routerLinkActive="active"><i class="pi pi-megaphone"></i> الأخبار</a></li>
               </ul>
             </li>
-            <li><a routerLink="custom-pages" routerLinkActive="active"><i class="pi pi-file"></i> الصفحات المخصصة</a>
-            <ul>
-              <li><a routerLink="custom-pages/drafts" routerLinkActive="active"><i class="pi pi-file"></i> المسودات</a></li>
-              <li><a routerLink="custom-pages/published" routerLinkActive="active"><i class="pi pi-file"></i> الصفحات المنشورة</a></li>
-            </ul>
+            <li class="nav-item has-submenu">
+              <a routerLink="custom-pages" routerLinkActive="active" (click)="handleMenuClick('custom-pages', $event)"><i class="pi pi-file"></i> الصفحات المخصصة</a>
+              <ul class="submenu" [ngClass]="{'expanded': activeSubmenu === 'custom-pages'}">
+                <li><a routerLink="custom-pages/drafts" routerLinkActive="active"><i class="pi pi-file"></i> المسودات</a></li>
+                <li><a routerLink="custom-pages/published" routerLinkActive="active"><i class="pi pi-file"></i> الصفحات المنشورة</a></li>
+              </ul>
             </li>
             <li><a routerLink="media" routerLinkActive="active"><i class="pi pi-images"></i> الوسائط</a></li>
             <li><a routerLink="menus" routerLinkActive="active"><i class="pi pi-bars"></i> القوائم</a></li>

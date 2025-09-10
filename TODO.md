@@ -1,5 +1,15 @@
-# TODO: Make program cards list start from right in postgraduate component
+# TODO: Fix Dashboard Menu <a> Elements
 
-## Tasks
-- [x] Reverse the order of the `programs` array in `postgraduate.component.ts` to make cards start from the right
-- [x] Verify the layout displays correctly with cards starting from the right (code changes applied successfully)
+## Issues Identified:
+1. **HTML Structure**: "الصفحات المخصصة" submenu is improperly nested
+2. **Event Handling**: Click handlers may conflict with routerLink
+3. **CSS Styling**: Submenu elements may not be clickable due to styling
+
+## Tasks:
+- [x] Fix HTML structure for custom pages submenu in Dashboard.component.html
+- [x] Ensure proper event handling to prevent conflicts between click and routerLink
+- [ ] Check and fix CSS issues in Dashboard.component.css
+- [ ] Test menu navigation functionality
+- [ ] Verify submenu toggling works correctly
+
+## Status: In Progress

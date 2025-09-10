@@ -7,7 +7,7 @@
               <div class="footer-section">
                 <div class="footer-logo-section">
                   <div class="footer-logo">
-                    <i [class]="footerData.logoIcon"></i>
+<img [src]="logoUrl" width="200%" [alt]="footerData.title || 'Faculty Logo'" *ngIf="logoUrl">
                   </div>
                   <div>
                     <h3>{{ footerData.title }}</h3>
@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="social-media">
-                  <h4>Follow Us</h4>
+                  <h4>قم بمتابعة أحدث أخبارنا</h4>
                   <div class="social-links">
 <a *ngFor="let link of footerData.socialLinks" [href]="link.url" [attr.aria-label]="link.platform">
   <i [class]="link.icon"></i>
@@ -80,7 +80,7 @@
                 </a>
                 <a [href]="'mailto:' + footerData.contactMethods.email" class="contact-method">
                   <i class="pi pi-envelope"></i>
-                  التواصل
+تواصل معنا
                 </a>
               </div>
             </div>

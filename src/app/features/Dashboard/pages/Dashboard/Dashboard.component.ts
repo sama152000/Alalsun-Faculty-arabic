@@ -7,8 +7,8 @@ import { filter } from 'rxjs/operators';
   selector: 'app-dashboard',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  templateUrl: './Dashboard.component.html',
+  styleUrls: ['./Dashboard.component.css']
 })
 export class DashboardComponent {
   activeSubmenu: string | null = null;
@@ -19,13 +19,15 @@ export class DashboardComponent {
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
       const url = event.urlAfterRedirects;
-      // Check if the current route is under 'pages', 'posts', or 'about'
+      // Check if the current route is under 'pages', 'posts', 'about', or 'custom-pages'
       if (url.includes('/dashboard/departments') || url.includes('/dashboard/sectors') || url.includes('/dashboard/staff')) {
         this.activeSubmenu = 'pages';
       } else if (url.includes('/dashboard/news')) {
         this.activeSubmenu = 'posts';
       } else if (url.includes('/dashboard/about')) {
         this.activeSubmenu = 'about';
+      } else if (url.includes('/dashboard/custom-pages')) {
+        this.activeSubmenu = 'custom-pages';
       } else {
         this.activeSubmenu = null;
       }
@@ -34,6 +36,13 @@ export class DashboardComponent {
 
   toggleSubmenu(menu: string): void {
     this.activeSubmenu = this.activeSubmenu === menu ? null : menu;
+  }
+
+  handleMenuClick(menu: string, event?: Event): void {
+    if (event) {
+      event.preventDefault();
+    }
+    this.toggleSubmenu(menu);
   }
 
   isPagesActive(): boolean {

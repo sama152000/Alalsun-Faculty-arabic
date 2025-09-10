@@ -1,4 +1,4 @@
-<header class="top-header">
+<header class="top-header" dir="rtl">
   <div class="header-diagonal"></div>
   <div class="container">
     <div class="header-content">
@@ -18,7 +18,7 @@
           <div class="university-info">
             <span class="university-text">{{ facultyInfo?.universityName || 'جامعة الأقصر' }}</span>
             <div class="university-badge">
-              <span> {{ facultyInfo?.established || '2016' }}</span>
+              <span>تأسست {{ facultyInfo?.established || '2016' }}</span>
             </div>
           </div>
         </div>
@@ -27,13 +27,13 @@
   </div>
 </header>
 
-<div class="submenu "  *ngIf="submenu">
+<div class="submenu" *ngIf="submenu" dir="rtl">
   <div class="submenu-bottom">
     <div class="container-fluid mb-12">
       <div class="row align-items-center">
         <div class="col-md-6">
           <p class="copyright">
-            {{ submenu.copyright }}
+            {{ submenu.copyright || '© 2025 كلية الألسن. جميع الحقوق محفوظة.' }}
           </p>
         </div>
         <div class="col-md-6">
@@ -44,7 +44,7 @@
             </a>
             <a [href]="'mailto:' + submenu.contactMethods.email" class="contact-method">
               <i class="pi pi-envelope"></i>
-              تواصل
+              اتصل بنا
             </a>
             <select class="language-switcher">
               <option *ngFor="let lang of submenu.contactMethods.languages" [value]="lang.value">{{ lang.label }}</option>
@@ -59,8 +59,8 @@
   </div>
 </div>
 
-<!-- التنقل -->
-<nav class="main-nav">
+<!-- Navigation -->
+<nav class="main-nav" dir="rtl">
   <div class="container">
     <div class="navbar navbar-expand-lg">
       <button 
@@ -74,11 +74,10 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" [class.show]="!isNavbarCollapsed" id="navbarNav">
-        <ul class="navbar-nav w-100 justify-content-start">
+        <ul class="navbar-nav w-100 justify-content-end">
           <li class="nav-item" *ngFor="let item of navbarItems" [class.dropdown]="item.children && item.children.length > 0" [class.show]="isDropdownOpen[item.label]">
             <ng-container *ngIf="!item.children || item.children.length === 0">
               <a class="nav-link" [routerLink]="item.route" routerLinkActive="active">
-                <i *ngIf="item.icon" [class]="item.icon + ' me-2'"></i>
                 {{ item.label }}
               </a>
             </ng-container>
@@ -88,13 +87,11 @@
                  role="button"
                  (click)="toggleDropdown(item.label, $event)"
                  [attr.aria-expanded]="isDropdownOpen[item.label]">
-                <i *ngIf="item.icon" [class]="item.icon + ' me-2'"></i>
                 {{ item.label }}
               </a>
               <ul class="dropdown-menu" [class.show]="isDropdownOpen[item.label]">
                 <li *ngFor="let child of item.children">
                   <a class="dropdown-item" [routerLink]="child.route" (click)="onDropdownSelect(item.label)">
-                    <i *ngIf="child.icon" [class]="child.icon + ' me-2'"></i>
                     {{ child.label }}
                   </a>
                 </li>

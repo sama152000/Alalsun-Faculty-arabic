@@ -12,7 +12,7 @@ import { SectorPageComponent } from './features/colleges/Al-Alsun/Pages/sector-p
 import { DashboardComponent } from './features/Dashboard/pages/Dashboard/Dashboard.component';
 // import { DashboardOverviewComponent } from './features/Dashboard/pages/dashboard/dashboard-overview/dashboard-overview.component';
 // import { SettingsManagementComponent } from './features/Dashboard/pages/dashboard/settings-management/settings-management.component';
-// import { MenuManagementComponent } from './features/Dashboard/pages/dashboard/menu-management/menu-management.component';
+import { MenuManagementComponent } from './features/Dashboard/pages/Dashboard/menu-management/menu-management.component';
 // import { MediaManagementComponent } from './features/Dashboard/pages/dashboard/app-media-management/media-management.component';
 // import { AboutManagementComponent } from './features/Dashboard/pages/dashboard/about-management/about-management.component';
 // import { SectorsManagementComponent } from './features/Dashboard/pages/dashboard/sectors-management/sectors-management.component';
@@ -37,8 +37,8 @@ import { DashboardComponent } from './features/Dashboard/pages/Dashboard/Dashboa
 // import { AddVisionMissionComponent } from './features/Dashboard/pages/dashboard/add-vision-mission/add-vision-mission.component';
 // import { AddNewsComponent } from './features/Dashboard/pages/dashboard/add-news/add-news.component';
 // import { EditNewsComponent } from './features/Dashboard/pages/dashboard/edit-news/edit-news.component';
-// import { AddMenuComponent } from './features/Dashboard/pages/dashboard/add-menu/add-menu.component';
-// import { EditMenuComponent } from './features/Dashboard/pages/dashboard/edit-menu/edit-menu.component';
+import { AddMenuComponent } from './features/Dashboard/pages/Dashboard/add-menu/add-menu.component';
+import { EditMenuComponent } from './features/Dashboard/pages/Dashboard/edit-menu/edit-menu.component';
 import { CustomPagesComponent } from './features/Dashboard/pages/Dashboard/custom-pages/custom-pages.component';
 import { PageCreatorComponent } from './features/Dashboard/pages/Dashboard/custom-pages/page-creator/page-creator.component';
 import { PagePreviewComponent } from './/features/Dashboard/pages/Dashboard/custom-pages/page-preview/page-preview.component';
@@ -94,16 +94,16 @@ export const routes: Routes = [
       // { path: 'news/add', component: AddNewsComponent },
       // { path: 'news/edit/:id', component: EditNewsComponent },
       // { path: 'media', component: MediaManagementComponent },
-      // { path: 'menus', component: MenuManagementComponent },
-      // { path: 'menus/add', component: AddMenuComponent },
-      // { path: 'menus/edit/:id', component: EditMenuComponent },
+      { path: 'menus', component: MenuManagementComponent },
+      { path: 'menus/add', component: AddMenuComponent },
+      { path: 'menus/edit/:id', component: EditMenuComponent },
       { path: 'custom-pages', component: CustomPagesComponent },
       { path: 'custom-pages/create/:templateId', component: PageCreatorComponent },
       { path: 'custom-pages/preview', component: PagePreviewComponent },
       { path: 'custom-pages/drafts', component: DraftsComponent },
       { path: 'custom-pages/published', component: PublishedComponent },
       // { path: 'settings', component: SettingsManagementComponent },
-      // { path: '', redirectTo: 'overview', pathMatch: 'full' }
+      { path: '', redirectTo: 'overview', pathMatch: 'full' }
     ]
   },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
