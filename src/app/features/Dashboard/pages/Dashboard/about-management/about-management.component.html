@@ -1,0 +1,199 @@
+<div class="staff-management" dir="rtl">
+  <div class="management-header">
+    <h2>إدارة المعلومات</h2>
+  </div>
+
+  <div class="tabs">
+    <div class="tab-headers">
+      <button type="button" class="tab-header" [class.active]="activeTab === 'dean'" (click)="activeTab = 'dean'">
+        <i class="pi pi-user"></i> معلومات العميد
+      </button>
+      <button type="button" class="tab-header" [class.active]="activeTab === 'viceDeans'" (click)="activeTab = 'viceDeans'">
+        <i class="pi pi-users"></i> وكلاء العميد
+      </button>
+      <button type="button" class="tab-header" [class.active]="activeTab === 'history'" (click)="activeTab = 'history'">
+        <i class="pi pi-history"></i> الأحداث التاريخية
+      </button>
+      <button type="button" class="tab-header" [class.active]="activeTab === 'visionMission'" (click)="activeTab = 'visionMission'">
+        <i class="pi pi-eye"></i> الرؤية والرسالة
+      </button>
+    </div>
+
+    <!-- Dean Info Tab -->
+    <div class="tab-content" [class.active]="activeTab === 'dean'">
+      <div class="management-header">
+        <h3>معلومات العميد</h3>
+        <button class="btn-primary-custom" [routerLink]="['/dashboard/about/dean/add']">
+          <i class="pi pi-plus"></i> إضافة عميد جديد
+        </button>
+      </div>
+      <div class="staff-list">
+        <div class="staff-card" *ngIf="dean">
+          <div class="staff-info">
+            <img [src]="dean.photo" [alt]="dean.name" class="staff-image">
+            <div class="staff-details">
+              <h3>{{ dean.name }}</h3>
+              <p class="staff-position">{{ dean.position }}</p>
+              <p class="staff-description">{{ dean.greeting | slice:0:50 }}...</p>
+              <div class="staff-meta">
+                <span class="meta-item">
+                  <i class="pi pi-star"></i>
+                  {{ dean.highlight | slice:0:50 }}...
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="staff-actions">
+            <button class="btn-edit" [routerLink]="['/dashboard/about/dean/edit']">
+              <i class="pi pi-pencil"></i> تعديل
+            </button>
+          </div>
+        </div>
+        <div *ngIf="!dean" class="no-data">
+          <p>لا توجد معلومات عن العميد</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vice Deans Tab -->
+    <div class="tab-content" [class.active]="activeTab === 'viceDeans'">
+      <div class="management-header">
+        <h3>وكلاء العميد</h3>
+        <button class="btn-primary-custom" [routerLink]="['/dashboard/about/vice-deans/add']">
+          <i class="pi pi-plus"></i> إضافة وكيل عميد جديد
+        </button>
+      </div>
+      <div class="staff-list">
+        <div class="staff-card" *ngFor="let viceDean of viceDeans">
+          <div class="staff-info">
+            <img [src]="viceDean.image" [alt]="viceDean.name" class="staff-image">
+            <div class="staff-details">
+              <h3>{{ viceDean.name }}</h3>
+              <p class="staff-position">{{ viceDean.position }}</p>
+              <p class="staff-department">{{ viceDean.sector }}</p>
+              <div class="staff-meta">
+                <span class="meta-item">
+                  <i class="pi pi-envelope"></i>
+                  {{ viceDean.email }}
+                </span>
+                <span class="meta-item">
+                  <i class="pi pi-building"></i>
+                  {{ viceDean.office }}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="staff-actions">
+            <button class="btn-edit" [routerLink]="['/dashboard/about/vice-deans/edit', viceDean.id]">
+              <i class="pi pi-pencil"></i> تعديل
+            </button>
+            <button class="btn-delete" (click)="confirmDelete(viceDean.id, 'viceDean')">
+              <i class="pi pi-trash"></i> حذف
+            </button>
+          </div>
+        </div>
+        <div *ngIf="viceDeans.length === 0" class="no-data">
+          <p>لا يوجد وكلاء عميد متاحين</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- History Events Tab -->
+    <div class="tab-content" [class.active]="activeTab === 'history'">
+      <div class="management-header">
+        <h3>الأحداث التاريخية</h3>
+        <button class="btn-primary-custom" [routerLink]="['/dashboard/about/history/add']">
+          <i class="pi pi-plus"></i> إضافة حدث جديد
+        </button>
+      </div>
+      <div class="staff-list">
+        <div class="staff-card" *ngFor="let event of historyEvents">
+          <div class="staff-info">
+            <div class="staff-icon">
+              <i class="pi pi-calendar"></i>
+            </div>
+            <div class="staff-details">
+              <h3>{{ event.title }}</h3>
+              <p class="staff-position">{{ event.year }}</p>
+              <p class="staff-description">{{ event.description | slice:0:50 }}...</p>
+            </div>
+          </div>
+          <div class="staff-actions">
+            <button class="btn-edit" [routerLink]="['/dashboard/about/history/edit', event.id]">
+              <i class="pi pi-pencil"></i> تعديل
+            </button>
+            <button class="btn-delete" (click)="confirmDelete(event.id, 'historyEvent')">
+              <i class="pi pi-trash"></i> حذف
+            </button>
+          </div>
+        </div>
+        <div *ngIf="historyEvents.length === 0" class="no-data">
+          <p>لا توجد أحداث تاريخية متاحة</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vision & Mission Tab -->
+    <div class="tab-content" [class.active]="activeTab === 'visionMission'">
+      <div class="management-header">
+        <h3>الرؤية والرسالة</h3>
+        <button class="btn-primary-custom" [routerLink]="['/dashboard/about/vision-mission/add']">
+          <i class="pi pi-plus"></i> إضافة رؤية/رسالة جديدة
+        </button>
+      </div>
+      <div class="staff-list">
+        <div class="staff-card" *ngFor="let vm of visionMissions">
+          <div class="staff-info">
+            <div class="staff-details">
+              <h3>{{ vm.title }}</h3>
+              <p class="staff-description">{{ vm.content | slice:0:50 }}...</p>
+            </div>
+          </div>
+          <div class="staff-actions">
+            <button class="btn-edit" [routerLink]="['/dashboard/about/vision-mission/edit', vm.id]">
+              <i class="pi pi-pencil"></i> تعديل
+            </button>
+            <button class="btn-delete" (click)="confirmDelete(vm.id, 'visionMission')">
+              <i class="pi pi-trash"></i> حذف
+            </button>
+          </div>
+        </div>
+        <div *ngIf="visionMissions.length === 0" class="no-data">
+          <p>لا توجد رؤية/رسالة متاحة</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Dialog -->
+  <div class="dialog-overlay" *ngIf="showConfirmDialog" [class.show]="showConfirmDialog">
+    <div class="dialog confirmation-dialog">
+      <div class="dialog-header">
+        <h3>تأكيد الحذف</h3>
+        <button type="button" class="close-button" (click)="closeConfirmDialog()">×</button>
+      </div>
+      <div class="dialog-content">
+        <p>هل أنت متأكد من حذف {{ deleteType === 'viceDean' ? 'وكيل العميد' : deleteType === 'historyEvent' ? 'الحدث التاريخي' : 'الرؤية/الرسالة' }}؟</p>
+      </div>
+      <div class="dialog-actions">
+        <button type="button" class="btn-outline-primary-custom" (click)="closeConfirmDialog()">
+          إلغاء
+        </button>
+        <button type="button" class="btn-primary-custom" (click)="deleteItem()">
+          حذف
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Messages -->
+  <div class="toast-container" *ngIf="showToast">
+    <div class="toast" [class]="toastClass">
+      <div class="toast-content">
+        <i [class]="toastIcon"></i>
+        <span>{{ toastMessage }}</span>
+      </div>
+      <button type="button" class="toast-close" (click)="hideToast()">×</button>
+    </div>
+  </div>
+</div>

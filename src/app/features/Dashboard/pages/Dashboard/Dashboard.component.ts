@@ -7,8 +7,8 @@ import { filter } from 'rxjs/operators';
   selector: 'app-dashboard',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './Dashboard.component.html',
-  styleUrls: ['./Dashboard.component.css']
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
   activeSubmenu: string | null = null;
@@ -19,37 +19,40 @@ export class DashboardComponent {
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
       const url = event.urlAfterRedirects;
-      // Check if the current route is under 'pages', 'posts', 'about', or 'custom-pages'
-      if (url.includes('/dashboard/departments') || url.includes('/dashboard/sectors') || url.includes('/dashboard/staff')) {
+      // Check if the current route is under 'pages'
+      if (url.includes('/dashboard/about') || url.includes('/dashboard/departments') || url.includes('/dashboard/staff') || url.includes('/dashboard/sectors')) {
         this.activeSubmenu = 'pages';
-      } else if (url.includes('/dashboard/news')) {
+      } 
+      // Check if the current route is under 'posts'
+      else if (url.includes('/dashboard/news')) {
         this.activeSubmenu = 'posts';
-      } else if (url.includes('/dashboard/about')) {
-        this.activeSubmenu = 'about';
-      } else if (url.includes('/dashboard/custom-pages')) {
+      } 
+      // Check if the current route is under 'custom-pages'
+      else if (url.includes('/dashboard/custom-pages')) {
         this.activeSubmenu = 'custom-pages';
-      } else {
-        this.activeSubmenu = null;
-      }
+      } 
+      // If none of the above, keep the current submenu open (no automatic closing)
+      // else {
+      //   this.activeSubmenu = null; // Removed to prevent auto-closing
+      // }
     });
   }
 
   toggleSubmenu(menu: string): void {
+    // Toggle submenu: open if closed, close if open
     this.activeSubmenu = this.activeSubmenu === menu ? null : menu;
   }
 
-  handleMenuClick(menu: string, event?: Event): void {
-    if (event) {
-      event.preventDefault();
-    }
-    this.toggleSubmenu(menu);
-  }
-
   isPagesActive(): boolean {
-    return this.router.url.includes('/dashboard') || this.router.url.includes('/dashboard/about');
+    const url = this.router.url;
+    return url.includes('/dashboard/about') || url.includes('/dashboard/departments') || url.includes('/dashboard/staff') || url.includes('/dashboard/sectors');
   }
 
   isPostsActive(): boolean {
     return this.router.url.includes('/dashboard/news');
+  }
+
+  isCustomPagesActive(): boolean {
+    return this.router.url.includes('/dashboard/custom-pages');
   }
 }

@@ -1,0 +1,125 @@
+<section class="dashboard-content" dir="rtl">
+  <div class="management-header">
+    <h2>إضافة قسم جديد</h2>
+  </div>
+  <form [formGroup]="departmentForm" (ngSubmit)="saveDepartment()">
+    <div class="form-card">
+      <h3>المعلومات الأساسية</h3>
+      <p class="section-description">قدم التفاصيل الأساسية للقسم الجديد.</p>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>اسم القسم *</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            formControlName="name"
+            placeholder="أدخل اسم القسم"
+            [class.is-invalid]="departmentForm.get('name')?.invalid && departmentForm.get('name')?.touched"
+          >
+          <div class="invalid-feedback" *ngIf="departmentForm.get('name')?.invalid && departmentForm.get('name')?.touched">
+            اسم القسم مطلوب
+          </div>
+        </div>
+        <div class="form-group">
+          <label>الاسم المختصر *</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            formControlName="shortName"
+            placeholder="أدخل الاسم المختصر"
+            [class.is-invalid]="departmentForm.get('shortName')?.invalid && departmentForm.get('shortName')?.touched"
+          >
+          <div class="invalid-feedback" *ngIf="departmentForm.get('shortName')?.invalid && departmentForm.get('shortName')?.touched">
+            الاسم المختصر مطلوب
+          </div>
+        </div>
+        <div class="form-group full-width">
+          <label>نظرة عامة *</label>
+          <textarea 
+            class="form-control" 
+            formControlName="overview"
+            rows="4"
+            placeholder="أدخل نظرة عامة عن القسم"
+            [class.is-invalid]="departmentForm.get('overview')?.invalid && departmentForm.get('overview')?.touched"
+          ></textarea>
+          <div class="invalid-feedback" *ngIf="departmentForm.get('overview')?.invalid && departmentForm.get('overview')?.touched">
+            النظرة العامة مطلوبة
+          </div>
+        </div>
+        <div class="form-group">
+          <label>النوع</label>
+          <select formControlName="type" class="form-control">
+            <option value="">اختر النوع</option>
+            <option *ngFor="let type of departmentTypes" [value]="type.value">
+              {{ type.label }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>سنة التأسيس</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            formControlName="established"
+            placeholder="مثال: 2016"
+          >
+        </div>
+        <div class="form-group">
+          <label>رابط الصورة</label>
+          <input 
+            type="url" 
+            class="form-control" 
+            formControlName="image"
+            placeholder="أدخل رابط الصورة"
+          >
+        </div>
+        <div class="form-group">
+          <label>فئة الأيقونة</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            formControlName="icon"
+            placeholder="مثال: pi pi-building"
+          >
+        </div>
+        <div class="form-group">
+          <label>المسار</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            formControlName="route"
+            placeholder="مثال: /departments/english"
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-actions">
+      <button 
+        type="button"
+        class="btn-outline-primary-custom"
+        [routerLink]="['/dashboard/departments']"
+      >
+        إلغاء
+      </button>
+      <button 
+        type="submit"
+        class="btn-primary-custom"
+        [disabled]="departmentForm.invalid"
+      >
+        إنشاء القسم
+      </button>
+    </div>
+  </form>
+
+  <!-- Toast Messages -->
+  <div class="toast-container" *ngIf="showToast">
+    <div class="toast" [class]="toastClass">
+      <div class="toast-content">
+        <i [class]="toastIcon"></i>
+        <span>{{ toastMessage }}</span>
+      </div>
+      <button type="button" class="toast-close" (click)="hideToast()">×</button>
+    </div>
+  </div>
+</section>

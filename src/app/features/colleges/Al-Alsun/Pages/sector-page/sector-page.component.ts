@@ -4,6 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { PageHeaderComponent } from '../shared/page-header/page-header.component';
 import { SectorsService } from '../../Services/sectors.service';
 import { SectorData, SectorDepartment, SectorService, NewsItem, MediaItem } from '../../model/sector.model';
+import { SectorDetail } from '../../model/sector-detail.model';
+import { SectorPost } from '../../model/sector-post.model';
+import { SectorProgram } from '../../model/sector-program.model';
+import { SectorServiceItem } from '../../model/sector-service.model';
+import { SectorUnit } from '../../model/sector-unit.model';
 import { FooterComponent } from "../shared/footer/footer.component";
 import { FormsModule } from '@angular/forms';
 
