@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-hero',
   standalone: true,
   imports: [CommonModule, ButtonModule, FormsModule, RouterModule],
-  templateUrl: './Hero-Section.component.html',
+  templateUrl: './Hero-section.component.html',
   styleUrls: ['./Hero-section.component.css']
 })
 export class HeroComponent implements AfterViewInit {

@@ -13,6 +13,7 @@ import { AlsunJournalComponent } from "./alsun-journal/alsun-journal.component";
 
 @Component({
   selector: 'app-Home',
+  standalone: true,
   templateUrl: './Home.component.html',
   imports: [
     HeroComponent,
