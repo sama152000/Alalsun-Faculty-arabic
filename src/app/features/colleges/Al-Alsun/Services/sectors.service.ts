@@ -1,332 +1,640 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
-import { environment } from '../../../../../environments/environment';
-import { SectorData, ViceDeanInfo, SectorDepartment, SectorService, NewsItem, MediaItem, SectorStatistic, ActivityItem, Achievement } from '../model/sector.model';
-import { SectorDetail } from '../model/sector-detail.model';
-import { SectorPost } from '../model/sector-post.model';
-import { SectorProgram } from '../model/sector-program.model';
-import { SectorServiceItem } from '../model/sector-service.model';
-import { SectorUnit } from '../model/sector-unit.model';
+import { SectorData } from '../model/sector.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SectorsService {
-  private apiUrl = environment.apiUrl || 'http://alisoncollege.runasp.net';
-
-  constructor(private http: HttpClient) {}
-
-  // جلب جميع القطاعات
-  getAllSectors(): Observable<SectorData[]> {
-    return this.http.get<any>(`${this.apiUrl}/api/v1/sectors/getall`, {
-      headers: { 'Accept-Language': 'ar' }
-    }).pipe(
-      map(res => {
-        if (res.success && res.data) {
-          return Array.isArray(res.data) ? res.data : [];
+  private sectors: SectorData[] = [
+    {
+      id: 'education-students',
+      name: 'شؤون التعليم والطلاب',
+      title: 'قطاع شؤون التعليم والطلاب',
+      description: `يُعد قطاع شؤون التعليم والطلاب الركيزة الأساسية للتميز الأكاديمي وتمكين الطلاب في مؤسستنا. يشمل نهجنا الشامل للتعليم ليس فقط المساعي الأكاديمية التقليدية، بل أيضاً التطوير الشامل للطلاب كقادة ومبتكرين ومواطنين عالميين في المستقبل. نحن ملتزمون بتوفير بيئة شاملة وديناميكية وداعمة تُغذي الفضول الفكري والتفكير النقدي والنمو الشخصي. من خلال أقسامنا المختلفة وبرامجنا المتخصصة، نضمن أن كل طالب يتلقى اهتماماً شخصياً ووصولاً إلى موارد متطورة تمهد له النجاح في عالم متغير باستمرار. يدافع قطاعنا عن التنوع، ويعزز المساواة، ويُعزز ثقافة التعلم المستمر والابتكار.`,
+      image: 'https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      viceDean: {
+        name: 'أ.د. محمد أحمد سيد حمزة',
+        title: 'نائب العميد لشؤون التعليم والطلاب',
+        photo: './assets/Picture2.jpg',
+        email: 'education@luxor.edu.eg',
+        office: 'مبنى الكلية - الدور الأول، غرفة 105'
+      },
+      departments: [
+        {
+          id: 'enrollment-registration',
+          name: 'قسم تسجيل الطلاب والتسجيل الأكاديمي',
+          overview: 'يُعد قسم تسجيل الطلاب والتسجيل الأكاديمي البوابة الأساسية للطلاب الداخلين إلى مجتمعنا الأكاديمي. نُدير عمليات التسجيل الشاملة، وأنظمة التسجيل الأكاديمي، ونحافظ على سجلات الطلاب المفصلة طوال رحلتهم الأكاديمية.',
+          responsibilities: [
+            'معالجة ومراجعة طلبات الطلاب الجدد مع معايير تقييم شاملة',
+            'تسهيل التحويلات الأكاديمية بين الأقسام وتغييرات البرامج'
+          ],
+          contact: {
+            email: 'enrollment@luxor.edu.eg',
+            office: 'مبنى خدمات الطلاب - الدور الأرضي، الوحدة 110-115',
+            phone: '+20 95 237 1001'
+          }
+        },
+        {
+          id: 'examination-results',
+          name: 'قسم إدارة الامتحانات والتقييم الأكاديمي',
+          overview: 'يضمن قسم إدارة الامتحانات والتقييم الأكاديمي نزاهة وتميزاً أكاديمياً من خلال عمليات امتحان شاملة، وإجراءات تقييم عادلة، وأنظمة إدارة نتائج شفافة.',
+          responsibilities: [
+            'تطوير وتنفيذ جداول وإجراءات الامتحانات الشاملة',
+            'الحفاظ على أمان مواد الامتحان وأنظمة النتائج السرية'
+          ],
+          contact: {
+            email: 'exams@luxor.edu.eg',
+            office: 'مبنى الشؤون الأكاديمية - الدور الثاني، الغرف 201-206',
+            phone: '+20 95 237 1002'
+          }
+        },
+        {
+          id: 'student-activities',
+          name: 'قسم حياة الطلاب والأنشطة اللامنهجية',
+          overview: 'يُثري قسم حياة الطلاب والأنشطة اللامنهجية تجربة الجامعة من خلال توفير فرص متنوعة للتطوير الشخصي والانخراط الثقافي وبناء المجتمع من خلال برمجة شاملة.',
+          responsibilities: [
+            'تنظيم فعاليات ثقافية ومهرجانات وعروض فنية شاملة',
+            'توفير دعم الصحة النفسية وخدمات الإرشاد للطلاب'
+          ],
+          contact: {
+            email: 'activities@luxor.edu.eg',
+            office: 'مركز أنشطة الطلاب - مبنى ب، جميع الأدوار',
+            phone: '+20 95 237 1003'
+          }
+        },
+        {
+          id: 'student-support',
+          name: 'قسم دعم الطلاب وخدمات الرفاهية',
+          overview: 'مُكرس لضمان رفاهية ونجاح الطلاب من خلال خدمات دعم شاملة، وبرامج مساعدة مالية، وأنظمة التدخل في الأزمات.',
+          responsibilities: [
+            'توفير الإرشاد الأكاديمي الشامل وخدمات الإرشاد المهني',
+            'تسهيل برامج الإرشاد بين الأقران والتدريس الأكاديمي'
+          ],
+          contact: {
+            email: 'support@luxor.edu.eg',
+            office: 'مركز رفاهية الطلاب - مبنى ج، الأدوار 1-2',
+            phone: '+20 95 237 1004'
+          }
+        },
+        {
+          id: 'technology-innovation',
+          name: 'قسم تكنولوجيا التعليم والابتكار',
+          overview: 'يقود التحول الرقمي في التعليم من خلال حلول تكنولوجية مبتكرة، ومنصات التعلم عبر الإنترنت، ومبادرات الحرم الجامعي الذكي.',
+          responsibilities: [
+            'تطوير وصيانة أنظمة إدارة التعلم والمنصات الرقمية',
+            'دعم أعضاء هيئة التدريس في تبني التكنولوجيات التعليمية والابتكارات التربوية'
+          ],
+          contact: {
+            email: 'techsupport@luxor.edu.eg',
+            office: 'مركز التكنولوجيا - مبنى د، الدور الثالث',
+            phone: '+20 95 237 1005'
+          }
         }
-        return [];
-      }),
-      catchError(error => {
-        console.error('Error fetching sectors:', error);
-        return of([]);
-      })
-    );
+      ],
+      services: [
+        {
+          id: 'comprehensive-enrollment',
+          name: 'خدمات التسجيل الشامل والقبول',
+          description: 'عملية تسجيل مبسطة تضمن انتقالاً سلساً إلى حياة الجامعة مع دعم شخصي وإرشاد شامل طوال رحلة القبول.',
+          steps: [
+            'إكمال نموذج التقديم عبر الإنترنت مع المعلومات الأكاديمية والشخصية المفصلة',
+            'إنهاء ترتيبات السكن وتسجيل خدمات الطلاب'
+          ],
+          requiredDocuments: [
+            'شهادة الثانوية العامة الرسمية أو المعادلة (الأصل ونسخ مصدقة)',
+            'محفظة أو عينات أعمال إبداعية للبرامج المعنية'
+          ],
+          downloadableForms: [
+            'نموذج طلب الطالب (PDF)',
+            'نموذج الطالب الدولي التكميلي (PDF)'
+          ]
+        },
+        {
+          id: 'academic-credentials',
+          name: 'خدمات الشهادات الأكاديمية والتوثيق',
+          description: 'خدمات شهادة شاملة توفر وثائق أكاديمية رسمية، وبطاقات هوية الطلاب، وخدمات التحقق للاستخدام المحلي والدولي.',
+          steps: [
+            'تقديم نموذج طلب مفصل يحدد نوع الوثيقة والاستخدام المقصود',
+            'استلام الوثائق المكتملة من المكتب المحدد أو ترتيب التسليم الآمن'
+          ],
+          requiredDocuments: [
+            'بطاقة هوية الطالب الحالية أو التحقق من الخريجين',
+            'توكيل رسمي إذا كان الطلب نيابة عن الآخرين'
+          ],
+          downloadableForms: [
+            'نموذج طلب الشهادة (PDF)',
+            'طلب نسخة طبق الأصل من الدبلوم (PDF)'
+          ]
+        },
+        {
+          id: 'comprehensive-housing',
+          name: 'خدمات السكن الشامل لحياة الطلاب السكنية',
+          description: 'برامج سكنية شاملة توفر بيئات معيشة آمنة ومريحة وداعمة أكاديمياً مع وسائل راحة شاملة وبرمجة مجتمعية.',
+          steps: [
+            'إكمال طلب السكن أثناء التسجيل الأولي أو فترة التقديم المبكر',
+            'المشاركة في اجتماعات الأدوار وأنشطة بناء المجتمع'
+          ],
+          requiredDocuments: [
+            'طلب السكن المكتمل مع تفضيلات ومتطلبات مفصلة',
+            'طلبات إقامة خاصة مع وثائق طبية داعمة إذا لزم الأمر'
+          ],
+          downloadableForms: [
+            'نموذج طلب السكن (PDF)',
+            'نموذج تفضيلات شريك الغرفة (PDF)',
+            'نموذج المعلومات الطبية (PDF)',
+            'عقد اتفاقية السكن (PDF)',
+            'نموذج طلب الإقامة الخاصة (PDF)'
+          ]
+        },
+        {
+          id: 'career-development',
+          name: 'خدمات تطوير المسار المهني والإعداد المهني',
+          description: 'خدمات مهنية شاملة تشمل التطوير المهني، وتنسيق التدريب العملي، ومساعدة وضع العمل، والدعم المهني مدى الحياة.',
+          steps: [
+            'إكمال تقييم المسار المهني وتقييم الاهتمامات المهنية',
+            'تلقي مساعدة وضع العمل والدعم المهني بعد التخرج'
+          ],
+          requiredDocuments: [
+            'السجلات الأكاديمية المُحدثة وشهادات إكمال الدورات',
+            'بيان أهداف مهنية ومقال أهداف مهنية'
+          ],
+          downloadableForms: [
+            'نموذج تسجيل خدمات المسار المهني (PDF)',
+            'نموذج طلب التدريب العملي (PDF)',
+            'اتفاقية شراكة صاحب العمل (PDF)',
+            'تسجيل شبكة خريجي المسار المهني (PDF)'
+          ]
+        },
+        {
+          id: 'international-programs',
+          name: 'برامج التبادل الدولي والدراسة في الخارج',
+          description: 'فرص تعليم عالمية من خلال الشراكات الدولية، وبرامج التبادل، ومبادرات الدراسة في الخارج مع خدمات دعم شاملة.',
+          steps: [
+            'حضور جلسات معلومات برامج التبادل الدولي والتوجيه الثقافي',
+            'إكمال ترتيبات السفر والتسجيل الأكاديمي في الجامعة المضيفة'
+          ],
+          requiredDocuments: [
+            'جواز سفر ساري مع وثائق التأشيرة المناسبة',
+            'نُموذج اتفاقية التكيف الثقافي والسلامة'
+          ],
+          downloadableForms: [
+            'طلب التبادل الدولي (PDF)',
+            'نموذج اهتمام الدراسة في الخارج (PDF)',
+            'قائمة التحقق من التوجيه الثقافي (PDF)',
+            'نموذج جهة الاتصال في حالات الطوارئ الدولية (PDF)'
+          ]
+        }
+      ],
+      news: [
+        {
+          id: 'news-1',
+          title: 'فتح التسجيل للعام الدراسي الجديد 2024-2025 بمنصة رقمية محسنة',
+          summary: 'نظام تسجيل عبر الإنترنت ثوري يطلق للعام الدراسي الجديد، مع توصيات الدورات المدعومة بالذكاء الاصطناعي، والتخطيط الأكاديمي المتكامل، وعمليات التسجيل المبسطة.',
+          date: '2024-08-15',
+          image: 'https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+          category: 'إعلانات أكاديمية'
+        },
+        {
+          id: 'news-2',
+          title: 'أسبوع أنشطة الطلاب الدوليين 2024: الاحتفال بالتنوع العالمي',
+          summary: 'احتفال أسبوعي يضم مهرجانات ثقافية، ومطبخ دولي، وعروض تقليدية، وورش عمل مواطنة عالمية مع مشاركة من 25 دولة.',
+          date: '2024-09-10',
+          image: 'https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+          category: 'فعاليات ثقافية'
+        },
+        {
+          id: 'news-3',
+          title: 'إصدار جدول امتحانات الفصل الدراسي الخريفي 2024 مع ابتكارات رقمية',
+          summary: 'جدول امتحانات شامل نُشر مع خيارات الإشراف الرقمي الجديدة، والتسهيلات الوصولية، وأنظمة تتبع النتائج في الوقت الفعلي.',
+          date: '2024-11-20',
+          image: 'https://images.pexels.com/photos/159844/cellular-education-classroom-159844.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+          category: 'أخبار الامتحانات'
+        }
+      ],
+      media: [
+        {
+          id: 'media-1',
+          title: 'يوم التوجيه للطلاب 2024: بناء قادة الغد',
+          type: 'photo',
+          url: 'https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg',
+          description: 'معرض صور شامل من يوم التوجيه للطلاب يضم جولات الحرم الجامعي، والمعارض الأكاديمية، ومراسم الترحيب بالطلاب الجدد',
+          date: '2024-09-01'
+        },
+        {
+          id: 'media-2',
+          title: 'المهرجان الثقافي السنوي: احتفال بوحدة التنوع',
+          type: 'video',
+          url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+          thumbnail: 'https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg',
+          description: 'أبرز لحظات المهرجان الثقافي السنوي يُظهر عروضاً دولية، ومعارض فنية، واحتفالات مجتمعية',
+          date: '2024-10-15'
+        },
+        {
+          id: 'media-3',
+          title: 'دليل الطالب الشامل 2024-2025',
+          type: 'document',
+          url: '/assets/documents/student-handbook-2024.pdf',
+          description: 'دليل شامل يغطي السياسات الأكاديمية، وموارد الحرم الجامعي، وخدمات الطلاب، ومعلومات حياة الجامعة',
+          date: '2024-08-01'
+        }
+      ],
+      statistics: [
+        { label: 'الطلاب المسجلين', value: '3,750', icon: 'pi pi-users' },
+        { label: 'الأنشطة السنوية', value: '125', icon: 'pi pi-star' },
+        { label: 'المشاريع البحثية', value: '156', icon: 'pi pi-search' }
+      ],
+      activities: [
+        {
+          id: 'activity-1',
+          title: 'بطولة المنافسة اللغوية الدولية',
+          description: 'منافسة لغوية سنوية تشمل 12 لغة مع تحديات تبادل ثقافي وترجمة',
+          date: '2024-03-15',
+          type: 'منافسة أكاديمية',
+          image: 'https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg'
+        },
+        {
+          id: 'activity-2',
+          title: 'مبادرة برنامج التبادل الثقافي العالمي',
+          description: 'برنامج تبادل طلابي دولي مع جامعات شريكة في أوروبا وآسيا وأمريكا',
+          date: '2024-05-20',
+          type: 'برنامج دولي',
+          image: 'https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg'
+        }
+      ],
+      achievements: [
+        {
+          id: 'achievement-1',
+          title: 'جائزة التميز الوطنية في خدمات الطلاب 2024',
+          description: 'تكريم وطني لخدمات دعم الطلاب المتميزة، والبرامج المبتكرة، ومعدلات رضا الطلاب الاستثنائية',
+          date: '2024-06-10',
+          image: 'https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg'
+        },
+        {
+          id: 'achievement-3',
+          title: 'جائزة الابتكار الرقمي في التعليم',
+          description: 'تكريم لتنفيذ تكنولوجيا تعليمية متطورة ومنصات تعلم رقمية',
+          date: '2024-09-15',
+          image: 'https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg'
+        }
+      ]
+    },
+    {
+      id: 'postgraduate-research',
+      name: 'الدراسات العليا والبحث العلمي',
+      title: 'قطاع الدراسات العليا وتميز البحث العلمي',
+      description: `يُمثل قطاع الدراسات العليا والبحث العلمي قمة الإنجاز الأكاديمي والتميز العلمي داخل مؤسستنا. نحن مُكرسون لتعزيز نظام بيئي بحثي نابض بالحياة يُعزز الابتكار والتفكير النقدي واكتشافات رائدة عبر التخصصات الأكاديمية المتنوعة. يجمع نهجنا الشامل للتعليم العالي بين التدريب الأكاديمي الصارم والخبرة البحثية العملية، مُعدًا العلماء ليصبحوا قادة في مجالاتهم ومُساهمين في المعرفة العالمية. من خلال الشراكات الاستراتيجية مع المؤسسات الدولية، ومرافق البحث المتطورة، والإرشاد من أعضاء هيئة تدريس مشهورين، نخلق بيئة تُزدهر فيها الفضول الفكري ويظهر البحث التحويلي. تمتد التزاماتنا إلى ما هو أبعد من الحدود التقليدية، تشمل التعاون متعدد التخصصات، وانخراط المجتمع، والتطبيق العملي لنتائج البحث لحل التحديات الواقعية.`,
+      image: 'https://images.pexels.com/photos/4207707/pexels-photo-4207707.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      viceDean: {
+        name: 'أ.د. يوسف عباس علي',
+        title: 'نائب العميد للدراسات العليا وتميز البحث العلمي',
+        photo: './assets/Picture5.jpg',
+        email: 'postgraduate@luxor.edu.eg',
+        office: 'مركز تميز البحث - مبنى أ، الدور الثالث، الوحدة 301'
+      },
+      departments: [
+        {
+          id: 'graduate-admissions',
+          name: 'قسم القبول للدراسات العليا وتميز أكاديمي',
+          overview: 'يُدير قسم القبول للدراسات العليا وتميز أكاديمي عمليات القبول الشاملة لبرامج الماجستير والدكتوراه مع الحفاظ على أعلى معايير التميز الأكاديمي ونزاهة البحث.',
+          responsibilities: [
+            'إدارة عمليات التقديم الشاملة للماجستير والدكتوراه بمعايير دولية',
+            'دعم التطوير المهني والتقدم الوظيفي لطلاب الدراسات العليا'
+          ],
+          contact: {
+            email: 'pg.admissions@luxor.edu.eg',
+            office: 'مبنى الدراسات العليا - الدور الأول، وحدة القبول',
+            phone: '+20 95 237 2001'
+          }
+        },
+        {
+          id: 'research-development',
+          name: 'قسم تطوير البحث والابتكار',
+          overview: 'مُكرس لتعزيز تميز البحث من خلال خدمات دعم شاملة، وجذب التمويل، ومبادرات تسويق الابتكار.',
+          responsibilities: [
+            'تطوير وتنفيذ استراتيجية البحث المؤسسية والأولويات',
+            'إدارة حماية الملكية الفكرية وعمليات التسويق'
+          ],
+          contact: {
+            email: 'research.dev@luxor.edu.eg',
+            office: 'مركز ابتكار البحث - مبنى ب، الأدوار 2-3',
+            phone: '+20 95 237 2002'
+          }
+        },
+        {
+          id: 'thesis-dissertation',
+          name: 'قسم إدارة الرسائل العلمية والأطروحات',
+          overview: 'رقابة شاملة على عمليات الرسائل العلمية والأطروحات من الفكرة إلى الإكمال، مُضموناً التميز الأكاديمي ونزاهة البحث طوال الرحلة العلمية.',
+          responsibilities: [
+            'إدارة عمليات الموافقة على اقتراحات الرسائل العلمية والأطروحات',
+            'توفير دعم إحصائي وفني لتحليل البحث'
+          ],
+          contact: {
+            email: 'thesis.mgmt@luxor.edu.eg',
+            office: 'مبنى البحث الأكاديمي - الدور الثاني، مركز الرسائل',
+            phone: '+20 95 237 2003'
+          }
+        },
+        {
+          id: 'international-collaboration',
+          name: 'قسم التعاون البحثي الدولي',
+          overview: 'يعزز الشراكات البحثية العالمية، وبرامج التبادل الدولي، ومبادرات البحث التعاوني التي توسع من نطاق وتأثير البحث المؤسسي.',
+          responsibilities: [
+            'تطوير شراكات استراتيجية مع مؤسسات بحث دولية',
+            'تنسيق مشاريع بحث مشتركة وطلبات المنح التعاونية',
+            'تسهيل تدريب الكفاءة الثقافية للتعاون الدولي'
+          ],
+          contact: {
+            email: 'international.research@luxor.edu.eg',
+            office: 'مركز البحث الدولي - مبنى ج، الدور الأول',
+            phone: '+20 95 237 2004'
+          }
+        }
+      ],
+      services: [
+        {
+          id: 'comprehensive-graduate-admission',
+          name: 'خدمات القبول الشامل للدراسات العليا واختيار البرامج',
+          description: 'عملية قبول مبسطة لبرامج الماجستير والدكتوراه مع إرشاد أكاديمي شخصي، ومطابقة مجالات البحث، ودعم شامل طوال رحلة التقديم.',
+          steps: [
+            'إكمال التقديم عبر الإنترنت الشامل مع الخلفية الأكاديمية والبحثية المفصلة',
+            'إنهاء ترتيبات الإشراف البحثي واستشارات التخطيط الأكاديمي'
+          ],
+          requiredDocuments: [
+            'شهادة البكالوريوس الرسمية مع الحد الأدنى للمعدل التراكمي (للماجستير)',
+            'ترجمات رسمية لجميع الوثائق غير الإنجليزية من خدمات ترجمة معتمدة'
+          ],
+          downloadableForms: [
+            'نموذج طلب الدراسات العليا (PDF)',
+            'نموذج الطالب الدولي التكميلي (PDF)'
+          ]
+        },
+        {
+          id: 'research-supervision',
+          name: 'خدمات الإشراف البحثي والإرشاد',
+          description: 'برنامج إرشاد وإشراف بحثي شامل يربط الطلاب بمشرفي هيئة تدريس خبراء ويوفر دعماً مستمراً طوال رحلة البحث.',
+          steps: [
+            'إكمال تقييم اهتمامات البحث وتقييم الخلفية الأكاديمية',
+            'المشاركة في ورش تطوير مهارات البحث وتدريب الكتابة الأكاديمية'
+          ],
+          requiredDocuments: [
+            'اقتراح بحث مفصل مع موافقة وتأييد المشرف',
+            'شهادة إكمال تدريب أخلاقيات البحث'
+          ],
+          downloadableForms: [
+            'قالب اتفاقية الإشراف (PDF)'
+          ]
+        },
+        {
+          id: 'thesis-dissertation-support',
+          name: 'خدمات دعم الرسائل العلمية والأطروحات الشاملة',
+          description: 'دعم شامل من البداية إلى النهاية لإكمال الرسائل العلمية والأطروحات بما في ذلك مساعدة الكتابة، والإرشاد بالتنسيق، وإعداد المناقشة، ودعم النشر.',
+          steps: [
+            'تسجيل موضوع الرسالة العلمية أو الأطروحة مع موافقة القسم وتشكيل اللجنة',
+            'تقديم تقارير تقدم منتظمة والمشاركة في مراجعات المراحل',
+            'إكمال التعديلات بعد المناقشة والتقديم النهائي لمنح الدرجة'
+          ],
+          requiredDocuments: [
+            'اقتراح الرسالة العلمية أو الأطروحة المُوافق عليه مع توقيعات اللجنة',
+            'رسائل توصية اللجنة ونماذج تقييم المناقشة'
+          ],
+          downloadableForms: [
+            'نموذج تسجيل الرسالة العلمية (PDF)'
+          ]
+        }
+      ],
+      news: [
+        {
+          id: 'pg-news-1',
+          title: 'مناقشة دكتوراه مميزة في الأدب المقارن والدراسات الثقافية',
+          summary: 'أطروحة رائدة في تحليل السرد عبر الثقافات تم مناقشتها مع مشاركة لجنة امتحان دولية عبر المنصة الرقمية.',
+          date: '2024-12-05',
+          image: 'https://images.pexels.com/photos/4207707/pexels-photo-4207707.jpeg',
+          category: 'مناقشة رسالة'
+        },
+        {
+          id: 'pg-news-2',
+          title: 'برنامج ماجستير ثوري في الإنسانيات الرقمية وتكنولوجيا الترجمة',
+          summary: 'برنامج متعدد التخصصات مبتكر يُطلق في خريف 2025، يجمع بين دراسات الترجمة التقليدية والذكاء الاصطناعي والتكنولوجيا الرقمية.',
+          date: '2024-11-15',
+          image: 'https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg',
+          category: 'ابتكار البرنامج'
+        }
+      ],
+      media: [
+        {
+          id: 'pg-media-1',
+          title: 'مؤتمر تميز البحث الدولي 2024',
+          type: 'photo',
+          url: 'https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg',
+          description: 'معرض صور شامل من مؤتمر البحث الدولي يضم متحدثين رئيسيين، وعروض بحثية، وجلسات تواصل',
+          date: '2024-10-20'
+        },
+        {
+          id: 'pg-media-2',
+          title: 'أبرز لحظات حفل مناقشة الدكتوراه المتميزة',
+          type: 'video',
+          url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+          thumbnail: 'https://images.pexels.com/photos/4207707/pexels-photo-4207707.jpeg',
+          description: 'فيديو أبرز لحظات حفلات مناقشة الدكتوراه الاستثنائية يُظهر التميز الأكاديمي والإنجاز العلمي',
+          date: '2024-11-01'
+        },
+        {
+          id: 'pg-media-3',
+          title: 'دليل شامل لإرشادات ومنهجيات البحث 2024',
+          type: 'document',
+          url: '/assets/documents/research-guidelines-2024.pdf',
+          description: 'دليل منهجية بحث شامل لطلاب الدراسات العليا يشمل إرشادات أخلاقية، ومعايير تنسيق، وأفضل الممارسات',
+          date: '2024-09-01'
+        }
+      ],
+      statistics: [
+        { label: 'طلاب الماجستير', value: '520', icon: 'pi pi-graduation-cap' },
+        { label: 'مرشحو الدكتوراه', value: '185', icon: 'pi pi-star' },
+        { label: 'شراكات صناعية', value: '28', icon: 'pi pi-briefcase' }
+      ],
+      activities: [
+        {
+          id: 'pg-activity-1',
+          title: 'ورشة عمل متقدمة في منهجيات البحث والتحليل الإحصائي',
+          description: 'ورشة عمل مكثفة لمدة ثلاثة أيام تغطي طرق البحث الكمي والكيفي مع تدريب عملي على تحليل البيانات',
+          date: '2024-09-25',
+          type: 'ورشة أكاديمية',
+          image: 'https://images.pexels.com/photos/4207707/pexels-photo-4207707.jpeg'
+        },
+        {
+          id: 'pg-activity-2',
+          title: 'قمة التعاون وشراكة البحث العالمي',
+          description: 'قمة دولية تركز على بناء شراكات بحثية وفرص تعاونية مع مؤسسات عالمية',
+          date: '2024-11-10',
+          type: 'قمة دولية',
+          image: 'https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg'
+        }
+      ],
+      achievements: [
+        {
+          id: 'pg-achievement-1',
+          title: 'جائزة التميز الدولي في التعليم العالي 2024',
+          description: 'تكريم دولي مرموق لبرامج الدراسات العليا المتميزة وتميز الإشراف البحثي',
+          date: '2024-07-15',
+          image: 'https://images.pexels.com/photos/4207707/pexels-photo-4207707.jpeg'
+        }
+      ]
+    },
+    {
+      id: 'community-environmental',
+      name: 'خدمة المجتمع والتنمية البيئية',
+      title: 'قطاع خدمة المجتمع والاستدامة البيئية',
+      description: `يُعد قطاع خدمة المجتمع والتنمية البيئية الجسر الحيوي الذي يربط مؤسستنا الأكاديمية بالمجتمع الأوسع من خلال مبادرات تحويلية، ومشاريع تنمية مستدامة، وبرامج إدارة بيئية شاملة. تمتد رسالتنا إلى ما هو أبعد من الحدود الأكاديمية التقليدية، تشمل انخراط مجتمعي شامل، وحفظ البيئة، والمسؤولية الاجتماعية. نحن ملتزمون بإحداث تأثير إيجابي دائم من خلال التدخلات القائمة على الأدلة، والشراكات التعاونية، والحلول المبتكرة التي تعالج التحديات الاجتماعية والبيئية الملحة. يدمج نهجنا الشامل تقييم احتياجات المجتمع، وانخراط أصحاب المصلحة، ومبادئ التنمية المستدامة لضمان أن مبادراتنا تخلق فوائد طويلة الأمد ذات معنى لجميع أعضاء المجتمع بينما تُعزز الاستدامة البيئية والإنصاف الاجتماعي.`,
+      image: 'https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      viceDean: {
+        name: 'أ.د. محمود حمزة محمد',
+        title: 'نائب العميد لخدمة المجتمع والاستدامة البيئية',
+        photo: './assets/Picture2.jpg',
+        email: 'community@luxor.edu.eg',
+        office: 'مركز انخراط المجتمع - مبنى هـ، الدور الثاني، الوحدة 205'
+      },
+      departments: [
+        {
+          id: 'community-outreach',
+          name: 'قسم التواصل المجتمعي والتنمية الاجتماعية',
+          overview: 'يُصمم ويُنفذ قسم التواصل المجتمعي والتنمية الاجتماعية برامج انخراط مجتمعي شاملة تعالج التحديات الاجتماعية، وتُعزز تمكين المجتمع، وتُعزز التنمية المستدامة من خلال شراكات تعاونية.',
+          responsibilities: [
+            'تطوير تقييمات احتياجات المجتمع الشاملة وأطر تقييم التأثير',
+            'تنسيق ورش عمل مجتمعية واسعة النطاق، وبرامج تدريب، ومبادرات بناء القدرة',
+            'تنسيق الاستجابة للطوارئ وخدمات دعم المجتمع في الكوارث'
+          ],
+          contact: {
+            email: 'outreach@luxor.edu.eg',
+            office: 'مركز انخراط المجتمع - مبنى هـ، الدور الأول',
+            phone: '+20 95 237 3001'
+          }
+        },
+        {
+          id: 'environmental-sustainability',
+          name: 'قسم الاستدامة البيئية والحفظ',
+          overview: 'مُكرس لتعزيز إدارة البيئة من خلال مبادرات استدامة شاملة، ومشاريع حفظ، وحلول مبتكرة لتحديات البيئة.',
+          responsibilities: [
+            'تطوير سياسات الاستدامة المؤسسية وأنظمة إدارة البيئة',
+            'تنفيذ برامج تقليل النفايات وإعادة التدوير واقتصاد الدائرة الشاملة',
+            'دعم مشاريع الزراعة المستدامة وأمن الغذاء المجتمعية'
+          ],
+          contact: {
+            email: 'environment@luxor.edu.eg',
+            office: 'مركز البحث البيئي - مبنى و، الأدوار 1-2',
+            phone: '+20 95 237 3002'
+          }
+        }
+      ],
+      services: [
+        {
+          id: 'comprehensive-training',
+          name: 'برامج تدريب مجتمعي شامل وتطوير مهني',
+          description: 'برامج تدريب واسعة مصممة لبناء قدرة المجتمع، وتعزيز المهارات المهنية، وتُعزز التعلم مدى الحياة من خلال فرص تعليمية متنوعة.',
+          steps: [
+            'إكمال تقييم احتياجات المجتمع الشامل وتحليل فجوات المهارات',
+            'المشاركة في شبكة الخريجين المستمرة وخدمات دعم التطوير المهني'
+          ],
+          requiredDocuments: [
+            'نموذج التسجيل المكتمل مع معلومات الخلفية والأهداف المفصلة',
+            'طلب المساعدة المالية ووثائق داعمة إذا لزم الأمر'
+          ],
+          downloadableForms: [
+            'نموذج تسجيل برنامج التدريب (PDF)',
+            'قالب خطة التطوير المهني (PDF)',
+            'نموذج تقييم تأثير المجتمع (PDF)',
+            'طلب التحقق من الشهادة (PDF)'
+          ]
+        }
+      ],
+      news: [
+        {
+          id: 'comm-news-1',
+          title: 'حملة الحفظ البيئي التحويلية 2024: مبادرة شراكة مجتمعية',
+          summary: 'حملة توعية وفعل بيئي شامل أُطلقت مع 25 منظمة مجتمعية، تستهدف تخفيف تغير المناخ وأهداف التنمية المستدامة.',
+          date: '2024-10-05',
+          image: 'https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg',
+          category: 'فعل بيئي'
+        },
+        {
+          id: 'comm-news-2',
+          title: 'برنامج الخدمة الطبية المتنقلة يصل إلى 15,000 عضو مجتمعي',
+          summary: 'مبادرة رعاية صحية شاملة توفر خدمات طبية مجانية، وفحوصات صحية، وتثقيف الصحة للمجتمعات الريفية المحرومة.',
+          date: '2024-11-12',
+          image: 'https://images.pexels.com/photos/4386466/pexels-photo-4386466.jpeg',
+          category: 'الصحة والعافية'
+        }
+      ],
+      media: [
+        {
+          id: 'comm-media-1',
+          title: 'سلسلة ورش العمل والتدريب المجتمعي 2024',
+          type: 'photo',
+          url: 'https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg',
+          description: 'توثيق صور شامل لورش التدريب المجتمعي، وبرامج تطوير المهارات، ومبادرات بناء القدرة',
+          date: '2024-10-15'
+        }
+      ],
+      statistics: [
+        { label: 'برامج المجتمع', value: '185', icon: 'pi pi-users' },
+        { label: 'مشاريع بيئية', value: '45', icon: 'pi pi-globe' },
+        { label: 'المستفيدون المُخدمون', value: '15,600', icon: 'pi pi-heart' }
+      ],
+      activities: [
+        {
+          id: 'comm-activity-1',
+          title: 'حملة الحفظ البيئي وتنظيف المدينة الشاملة',
+          description: 'مبادرة بيئية واسعة النطاق تشمل 500+ متطوع في تجميل المدينة واستعادة البيئة الشاملة',
+          date: '2024-08-20',
+          type: 'حملة بيئية',
+          image: 'https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg'
+        }
+      ],
+      achievements: [
+        {
+          id: 'comm-achievement-1',
+          title: 'جائزة التميز الوطني في تأثير المجتمع 2024',
+          description: 'تكريم وطني مرموق لبرامج خدمة المجتمع التحويلية ومبادرات إدارة البيئة الاستثنائية',
+          date: '2024-08-10',
+          image: 'https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg'
+        }
+      ]
+    }
+  ];
+
+  getAllSectors(): Observable<SectorData[]> {
+    return of(this.sectors);
   }
 
-  // جلب قطاع واحد حسب المعرف
-  getSectorById(id: string): Observable<SectorData | null> {
-    return this.http.get<any>(`${this.apiUrl}/api/v1/sectors/get/${id}`, {
-      headers: { 'Accept-Language': 'ar' }
-    }).pipe(
-      map(res => res.success && res.data ? res.data : null),
-      catchError(error => {
-        console.log('Error fetching sector by id:', error);
-        return of(null);
-      })
-    );
+  getSectorById(id: string): Observable<SectorData | undefined> {
+    const sector = this.sectors.find(s => s.id === id);
+    return of(sector);
   }
 
-  // جلب تفاصيل القطاعات
-  getAllSectorDetails(): Observable<SectorDetail[]> {
-    return this.http.get<any>(`${this.apiUrl}/api/v1/sectordetails/getall`, {
-      headers: { 'Accept-Language': 'ar' }
-    }).pipe(
-      map(res => res.success && res.data ? res.data : []),
-      catchError(error => {
-        console.log('Error fetching sector details:', error);
-        return of([]);
-      })
-    );
+  addSector(sector: SectorData): Observable<SectorData> {
+    const existingSector = this.sectors.find(s => s.id === sector.id);
+    if (existingSector) {
+      throw new Error('قطاع بهذا المعرف موجود بالفعل');
+    }
+    this.sectors.push(sector);
+    return of(sector);
   }
 
-  // جلب المنشورات الخاصة بالقطاعات
-  getAllSectorPosts(): Observable<SectorPost[]> {
-    return this.http.get<any>(`${this.apiUrl}/api/v1/sectorposts/getall`, {
-      headers: { 'Accept-Language': 'ar' }
-    }).pipe(
-      map(res => res.success && res.data ? res.data : []),
-      catchError(error => {
-        console.log('Error fetching sector posts:', error);
-        return of([]);
-      })
-    );
+  updateSector(id: string, updatedSector: SectorData): Observable<SectorData> {
+    const index = this.sectors.findIndex(s => s.id === id);
+    if (index === -1) {
+      throw new Error('القطاع غير موجود');
+    }
+    this.sectors[index] = { ...updatedSector };
+    return of(this.sectors[index]);
   }
 
-  // جلب البرامج الخاصة بالقطاعات
-  getAllSectorPrograms(): Observable<SectorProgram[]> {
-    return this.http.get<any>(`${this.apiUrl}/api/v1/sectorprograms/getall`, {
-      headers: { 'Accept-Language': 'ar' }
-    }).pipe(
-      map(res => res.success && res.data ? res.data : []),
-      catchError(error => {
-        console.log('Error fetching sector programs:', error);
-        return of([]);
-      })
-    );
-  }
-
-  // جلب الخدمات الخاصة بالقطاعات
-  getAllSectorServices(): Observable<SectorServiceItem[]> {
-    return this.http.get<any>(`${this.apiUrl}/api/v1/sectorservices/getall`, {
-      headers: { 'Accept-Language': 'ar' }
-    }).pipe(
-      map(res => res.success && res.data ? res.data : []),
-      catchError(error => {
-        console.log('Error fetching sector services:', error);
-        return of([]);
-      })
-    );
-  }
-
-  // جلب الوحدات الخاصة بالقطاعات
-  getAllSectorUnits(): Observable<SectorUnit[]> {
-    return this.http.get<any>(`${this.apiUrl}/api/v1/sectorunits/getall`, {
-      headers: { 'Accept-Language': 'ar' }
-    }).pipe(
-      map(res => res.success && res.data ? res.data : []),
-      catchError(error => {
-        console.log('Error fetching sector units:', error);
-        return of([]);
-      })
-    );
-  }
-
-  // إضافة قطاع جديد
-  addSector(sector: SectorData): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/api/v2/sectors/add`, sector, {
-      headers: { 'Content-Type': 'application/json-patch+json', 'Accept-Language': 'ar' }
-    }).pipe(
-      catchError(error => {
-        console.log('Error adding sector:', error);
-        throw error;
-      })
-    );
-  }
-
-  // إضافة تفاصيل قطاع
-  addSectorDetail(detail: SectorDetail): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/api/v2/sectordetails/add`, detail, {
-      headers: { 'Content-Type': 'application/json-patch+json', 'Accept-Language': 'ar' }
-    }).pipe(
-      catchError(error => {
-        console.log('Error adding sector detail:', error);
-        throw error;
-      })
-    );
-  }
-
-  // إضافة منشور قطاع
-  addSectorPost(post: SectorPost): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/api/v2/sectorposts/add`, post, {
-      headers: { 'Content-Type': 'application/json-patch+json', 'Accept-Language': 'ar' }
-    }).pipe(
-      catchError(error => {
-        console.log('Error adding sector post:', error);
-        throw error;
-      })
-    );
-  }
-
-  // إضافة برنامج قطاع
-  addSectorProgram(program: SectorProgram): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/api/v2/sectorprograms/add`, program, {
-      headers: { 'Content-Type': 'application/json-patch+json', 'Accept-Language': 'ar' }
-    }).pipe(
-      catchError(error => {
-        console.log('Error adding sector program:', error);
-        throw error;
-      })
-    );
-  }
-
-  // إضافة خدمة قطاع
-  addSectorService(service: SectorServiceItem): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/api/v2/sectorservices/add`, service, {
-      headers: { 'Content-Type': 'application/json-patch+json', 'Accept-Language': 'ar' }
-    }).pipe(
-      catchError(error => {
-        console.error('Error adding sector service:', error);
-        throw error;
-      })
-    );
-  }
-
-  // إضافة وحدة قطاع
-  addSectorUnit(unit: SectorUnit): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/api/v2/sectorunits/add`, unit, {
-      headers: { 'Content-Type': 'application/json-patch+json', 'Accept-Language': 'ar' }
-    }).pipe(
-      catchError(error => {
-        console.error('Error adding sector unit:', error);
-        throw error;
-      })
-    );
-  }
-
-  // تعديل قطاع
-  updateSector(id: string, sector: SectorData): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/api/v2/sectors/update/${id}`, sector, {
-      headers: { 'Content-Type': 'application/json-patch+json', 'Accept-Language': 'ar' }
-    }).pipe(
-      catchError(error => {
-        console.error('Error updating sector:', error);
-        throw error;
-      })
-    );
-  }
-
-  // تعديل تفاصيل قطاع
-  updateSectorDetail(id: string, detail: SectorDetail): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/api/v2/sectordetails/update/${id}`, detail, {
-      headers: { 'Content-Type': 'application/json-patch+json', 'Accept-Language': 'ar' }
-    }).pipe(
-      catchError(error => {
-        console.error('Error updating sector detail:', error);
-        throw error;
-      })
-    );
-  }
-
-  // تعديل منشور قطاع
-  updateSectorPost(id: string, post: SectorPost): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/api/v2/sectorposts/update/${id}`, post, {
-      headers: { 'Content-Type': 'application/json-patch+json', 'Accept-Language': 'ar' }
-    }).pipe(
-      catchError(error => {
-        console.error('Error updating sector post:', error);
-        throw error;
-      })
-    );
-  }
-
-  // تعديل برنامج قطاع
-  updateSectorProgram(id: string, program: SectorProgram): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/api/v2/sectorprograms/update/${id}`, program, {
-      headers: { 'Content-Type': 'application/json-patch+json', 'Accept-Language': 'ar' }
-    }).pipe(
-      catchError(error => {
-        console.error('Error updating sector program:', error);
-        throw error;
-      })
-    );
-  }
-
-  // تعديل خدمة قطاع
-  updateSectorService(id: string, service: SectorServiceItem): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/api/v2/sectorservices/update/${id}`, service, {
-      headers: { 'Content-Type': 'application/json-patch+json', 'Accept-Language': 'ar' }
-    }).pipe(
-      catchError(error => {
-        console.error('Error updating sector service:', error);
-        throw error;
-      })
-    );
-  }
-
-  // تعديل وحدة قطاع
-  updateSectorUnit(id: string, unit: SectorUnit): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/api/v2/sectorunits/update/${id}`, unit, {
-      headers: { 'Content-Type': 'application/json-patch+json', 'Accept-Language': 'ar' }
-    }).pipe(
-      catchError(error => {
-        console.error('Error updating sector unit:', error);
-        throw error;
-      })
-    );
-  }
-
-  // حذف قطاع (Soft Delete)
-  deleteSector(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/api/v2/sectors/deletesoft/${id}`, {
-      headers: { 'Accept-Language': 'ar' }
-    }).pipe(
-      catchError(error => {
-        console.error('Error deleting sector:', error);
-        throw error;
-      })
-    );
-  }
-
-  // حذف تفاصيل القطاع
-  deleteSectorDetail(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/api/v2/sectordetails/delete/${id}`, {
-      headers: { 'Accept-Language': 'ar' }
-    }).pipe(
-      catchError(error => {
-        console.error('Error deleting sector detail:', error);
-        throw error;
-      })
-    );
-  }
-
-  // حذف منشور القطاع
-  deleteSectorPost(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/api/v2/sectorposts/delete/${id}`, {
-      headers: { 'Accept-Language': 'ar' }
-    }).pipe(
-      catchError(error => {
-        console.error('Error deleting sector post:', error);
-        throw error;
-      })
-    );
-  }
-
-  // حذف برنامج القطاع
-  deleteSectorProgram(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/api/v2/sectorprograms/delete/${id}`, {
-      headers: { 'Accept-Language': 'ar' }
-    }).pipe(
-      catchError(error => {
-        console.error('Error deleting sector program:', error);
-        throw error;
-      })
-    );
-  }
-
-  // حذف خدمة القطاع
-  deleteSectorService(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/api/v2/sectorservices/delete/${id}`, {
-      headers: { 'Accept-Language': 'ar' }
-    }).pipe(
-      catchError(error => {
-        console.error('Error deleting sector service:', error);
-        throw error;
-      })
-    );
-  }
-
-  // حذف وحدة القطاع
-  deleteSectorUnit(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/api/v2/sectorunits/delete/${id}`, {
-      headers: { 'Accept-Language': 'ar' }
-    }).pipe(
-      catchError(error => {
-        console.error('Error deleting sector unit:', error);
-        throw error;
-      })
-    );
+  deleteSector(id: string): Observable<void> {
+    const index = this.sectors.findIndex(s => s.id === id);
+    if (index === -1) {
+      throw new Error('القطاع غير موجود');
+    }
+    this.sectors.splice(index, 1);
+    return of(void 0);
   }
 }

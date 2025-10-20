@@ -153,7 +153,7 @@
                   <div class="row g-3 mb-4">
                     <div class="col-6">
                       <div class="d-flex align-items-center">
-                        <i class="pi pi-book text-gold me-2"></i>
+                        <i class="pi pi-book text-gold me-2 p-4"></i>
                         <div>
                           <small class="text-muted d-block">البرامج</small>
                           <strong>{{department.programs.length}}</strong>
@@ -162,7 +162,7 @@
                     </div>
                     <div class="col-6">
                       <div class="d-flex align-items-center">
-                        <i class="pi pi-users text-gold me-2"></i>
+                        <i class="pi pi-users text-gold me-2 p-4"></i>
                         <div>
                           <small class="text-muted d-block">الكلية</small>
                           <strong>{{department.faculty.length}}</strong>
@@ -173,8 +173,10 @@
                   
                   <div class="mt-auto">
                     <a [routerLink]="['/departments', department.id]" class="btn btn-primary-gradient w-100">
-                      <i class="pi pi-arrow-right me-2"></i>
-استكشاف البرامج                    </a>
+استكشاف البرامج         
+                      <i class="pi pi-arrow-left me-2"></i>
+
+</a>
                   </div>
                 </div>
               </div>

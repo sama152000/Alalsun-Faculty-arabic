@@ -9,6 +9,7 @@ import { PostgraduateComponent } from '../Home/postgraduate/postgraduate.compone
 import { QuickStatsComponent } from '../Home/quick-stats/quick-stats.component';
 import { ContactLocationComponent } from '../Home/contact-location/contact-location.component';
 import { FooterComponent } from "../shared/footer/footer.component";
+import { AlsunJournalComponent } from "./alsun-journal/alsun-journal.component";
 
 @Component({
   selector: 'app-Home',
@@ -23,7 +24,8 @@ import { FooterComponent } from "../shared/footer/footer.component";
     // StudentActivitiesComponent,
     QuickStatsComponent,
     ContactLocationComponent,
-    FooterComponent
+    FooterComponent,
+    AlsunJournalComponent
 ],
   styleUrls: ['./Home.component.css']
 })
