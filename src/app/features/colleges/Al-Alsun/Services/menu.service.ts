@@ -1,13 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { EducationalServiceService } from './educational-service.service';
+
 import { MenuItem, MenuType, HeaderType, HeaderData, FooterData, NavbarItem } from '../model/menu.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MenuService {
-  private menus: MenuItem[] = [
-    {
+  private menus: MenuItem[] = [];
+
+  constructor(private educationalServiceService: EducationalServiceService) {
+    this.menus = this.buildMenus();
+  }
+
+  private buildMenus(): MenuItem[] {
+    return [
+      {
       id: 1,
       name: 'Default Header',
       type: MenuType.HEADER,
@@ -29,6 +38,14 @@ export class MenuService {
             ]
           },
           { label: 'المراكز', route: '/services' },
+            { label: 'دليل الطالب', route: '/student-guide' },
+            {
+              label: 'الخدمات',
+              children: this.educationalServiceService.getAllServices().map(service => ({
+                label: service.title,
+                route: `/educational-services/${service.id}`
+              }))
+            },
           { label: 'تواصل معنا', route: '/contact' },
         ]
       }
@@ -118,9 +135,7 @@ export class MenuService {
       }
     }
   ];
-
-  constructor() {}
-
+  }
   getAllMenus(): Observable<MenuItem[]> {
     return of(this.menus);
   }

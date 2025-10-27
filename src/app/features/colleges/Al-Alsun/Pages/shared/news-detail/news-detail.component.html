@@ -6,7 +6,7 @@
       </app-page-header>
       
       <section class="news-detail-section">
-        <div class="container">
+        <div class="container-fluid">
           <div class="card-modern">
             <div class="news-header">
               <div class="news-image-container">
@@ -51,8 +51,8 @@
           
           <div class="navigation-section">
             <button class="btn-outline-primary-custom" (click)="goBack()">
-              <i class="pi pi-arrow-left me-2"></i>
               العودة إلى الأخبار
+              <i class="pi pi-arrow-left me-2"></i>
             </button>
             
             <div class="related-news" *ngIf="relatedNews.length > 0">

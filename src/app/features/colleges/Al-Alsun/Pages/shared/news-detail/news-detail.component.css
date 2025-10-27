@@ -1,9 +1,10 @@
   .news-detail-page {
       min-height: 100vh;
+      padding :var(--component-padding)!important;
     }
 
     .news-detail-section {
-      padding: 3rem 0;
+      padding :var(--component-padding)!important;
       background: var(--light-bg);
     }
 

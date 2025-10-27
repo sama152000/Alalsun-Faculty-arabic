@@ -17,7 +17,7 @@ import { FooterComponent } from "../shared/footer/footer.component";
 })
 export class ServicesComponent implements OnInit {
   breadcrumbs = [
-    { label: 'Services', url: '/services' }
+    { label: 'المراكز', url: '/services' }
   ];
 
   allServices: FacultyService[] = [];

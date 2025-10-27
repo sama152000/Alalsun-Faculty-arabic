@@ -1,12 +1,10 @@
-/* Sector Page Styles - RTL Optimized and Stable */
+/* Sector Page Styles - Cleaned and Complete */
 .sector-page {
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   min-height: 100vh;
-  padding: 2rem 0;
-  direction: rtl;
 }
 
-/* Sector Tabs - RTL Optimized */
+/* Sector Tabs */
 .sector-tabs-container {
   background: white;
   border-radius: 20px;
@@ -20,7 +18,7 @@
   background: linear-gradient(135deg, var(--primary-color) 0%, #0c685c 100%);
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+   align-items: center;
   justify-content: space-between;
   gap: 1rem;
 }
@@ -56,15 +54,15 @@
   content: '';
   position: absolute;
   bottom: 0;
-  right: 50%;
-  transform: translateX(50%);
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
   height: 4px;
   background: var(--white);
   border-radius: 2px;
 }
 
-/* Sidebar Styles - RTL Optimized */
+/* Sidebar Styles */
 .sector-sidebar {
   background: white;
   border-radius: 20px;
@@ -122,14 +120,13 @@
   font-weight: 600;
   margin-bottom: 1.5rem;
   position: relative;
-  padding-right: 1rem;
-  text-align: right;
+  padding-left: 1rem;
 }
 
 .sidebar-subtitle::before {
   content: '';
   position: absolute;
-  right: 0;
+  left: 0;
   top: 50%;
   transform: translateY(-50%);
   width: 4px;
@@ -138,7 +135,7 @@
   border-radius: 2px;
 }
 
-/* Vice Dean Card - RTL Optimized */
+/* Vice Dean Card */
 .vice-dean-card {
   display: flex;
   align-items: center;
@@ -148,7 +145,6 @@
   border-radius: 15px;
   transition: all 0.3s ease;
   border: 2px solid transparent;
-  flex-direction: row-reverse;
 }
 
 .vice-dean-card:hover {
@@ -170,14 +166,12 @@
   font-weight: 700;
   margin-bottom: 0.5rem;
   font-size: 1rem;
-  text-align: right;
 }
 
 .vice-dean-info p {
   color: var(--gray-text);
   font-size: 0.9rem;
   margin-bottom: 0.75rem;
-  text-align: right;
 }
 
 .contact-info {
@@ -192,10 +186,9 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  justify-content: flex-end;
 }
 
-/* Sidebar Lists - RTL Optimized */
+/* Sidebar Lists */
 .department-list,
 .service-list,
 .category-list,
@@ -213,9 +206,7 @@
   border: none;
   color: var(--gray-text);
   padding: 1rem 1.5rem;
-  display: flex;
-  text-align: right;
-  justify-content: right;
+  text-align: left;
   border-radius: 12px;
   transition: all 0.3s ease;
   font-size: 1rem;
@@ -223,15 +214,6 @@
   border: 2px solid transparent;
   cursor: pointer;
   width: 100%;
-  align-items: center;
-  flex-direction: row-reverse;
-}
-
-.department-link i,
-.service-link i,
-.media-type-link i {
-  margin-left: 0.5rem !important;
-  margin-right: 0rem !important;
 }
 
 .department-link:hover,
@@ -241,7 +223,7 @@
   background: var(--light-bg);
   color: var(--primary-color);
   border-color: var(--primary-color);
-  transform: translateX(-5px);
+  transform: translateX(5px);
 }
 
 .department-link.active,
@@ -255,7 +237,7 @@
   box-shadow: 0 4px 15px rgba(12, 104, 92, 0.3);
 }
 
-/* Activity List - RTL Optimized */
+/* Activity List */
 .activity-list {
   display: flex;
   flex-direction: column;
@@ -270,7 +252,6 @@
   border-radius: 12px;
   transition: all 0.3s ease;
   border: 2px solid transparent;
-  flex-direction: row-reverse;
 }
 
 .activity-item:hover {
@@ -297,7 +278,6 @@
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  text-align: right;
 }
 
 .activity-content p {
@@ -305,14 +285,12 @@
   font-size: 0.9rem;
   margin-bottom: 0;
   line-height: 1.6;
-  text-align: right;
 }
 
-/* Achievement List - RTL Optimized */
+/* Achievement List */
 .achievement-list {
   display: flex;
   flex-direction: column;
-  text-align: right;
   gap: 1.25rem;
 }
 
@@ -320,9 +298,8 @@
   padding: 1.5rem;
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   border-radius: 12px;
-  border-right: 6px solid var(--darkred);
+  border-left: 6px solid var(--darkred);
   transition: all 0.3s ease;
-  text-align: right;
 }
 
 .achievement-item:hover {
@@ -349,7 +326,7 @@
   font-weight: 600;
 }
 
-/* Main Content - RTL Optimized */
+/* Main Content */
 .main-content {
   background: white;
   border-radius: 20px;
@@ -395,14 +372,12 @@
   line-height: 1.8;
   color: var(--dark-text);
   margin-bottom: 2rem;
-  text-align: right;
 }
 
 .content-text .lead {
   font-size: 1.1rem;
   font-weight: 400;
   color: var(--primary-color);
-  text-align: right;
 }
 
 .sector-image img {
@@ -410,8 +385,8 @@
   box-shadow: 0 15px 40px rgba(0,0,0,0.15);
   transition: transform 0.3s ease;
   width: 100%;
-  height: 180px;
-  margin-bottom: 0.9rem;
+  height: auto;
+  margin-bottom: 1.1rem;
 }
 
 .sector-image img:hover {
@@ -426,13 +401,13 @@
   font-size: 0.9rem;
 }
 
-/* Quick Facts Card - RTL Optimized */
+/* Quick Facts Card */
 .quick-facts-card {
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   padding: 2rem;
   border-radius: 15px;
+  border: 2px solid var(--light-gray);
 }
-
 
 .quick-facts-card .card-title {
   color: var(--primary-color);
@@ -454,7 +429,7 @@
 }
 
 .fact-item:hover {
-  transform: translateX(-5px);
+  transform: translateX(5px);
 }
 
 .fact-item i {
@@ -515,7 +490,7 @@
 }
 
 .feature-list li:hover {
-  transform: translateX(-5px);
+  transform: translateX(5px);
 }
 
 .feature-list li i {
@@ -739,7 +714,6 @@
   margin-bottom: 0.75rem;
   color: var(--dark-text);
   line-height: 1.6;
-;
 }
 
 .steps-list li {
@@ -940,6 +914,12 @@
 
 /* Responsive Design */
 @media (max-width: 1024px) {
+.container-fluid {
+   padding: 1rem !important;
+  }
+ 
+  /* Sector Page Styles - Cleaned and Complete */
+
   .grid-cols-4 {
     grid-template-columns: 1fr;
   }
@@ -949,45 +929,48 @@
   }
   
   .main-content {
-    padding: 2rem;
+    padding: 1rem 1.5rem;
+    margin: 0;
   }
 }
 
 @media (max-width: 768px) {
+
+
   .sector-tabs .nav-link {
     padding: 1rem 1.5rem;
     font-size: 1rem;
   }
-  
+
   .vice-dean-card {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .activity-item {
     flex-direction: column;
     text-align: center;
     gap: 1rem;
   }
-  
+
   .stat-card,
   .program-card {
     margin-bottom: 1rem;
     padding: 2rem 1.5rem;
   }
-  
+
   .content-title {
     font-size: 2rem;
   }
-  
+
   .content-subtitle {
     font-size: 1.1rem;
   }
-  
+
   .main-content {
-    padding: 1.5rem;
+    padding: 1rem 1.5rem;
   }
-  
+
   .sector-sidebar {
     position: static;
     margin-bottom: 2rem;
@@ -1001,7 +984,7 @@
   }
   
   .main-content {
-    padding: 1rem;
+    padding: 1rem 1.5rem;
   }
   
   .content-title {

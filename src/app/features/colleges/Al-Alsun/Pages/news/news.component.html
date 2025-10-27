@@ -1,12 +1,12 @@
-<div class="news-page" dir="rtl">
-  <app-page-header 
-    title="الأخبار والإعلانات" 
-    [breadcrumbs]="breadcrumbs">
-  </app-page-header>
+<app-page-header 
+  title="الأخبار والإعلانات" 
+  [breadcrumbs]="breadcrumbs">
+</app-page-header>
+<div class="news-page">
   
-  <!-- Filter Section -->
-  <section class="filter-section py-2">
-    <div class="container">
+  <!-- قسم التصفية -->
+  <!-- <section class="filter-section py-2">
+    <div class="container-fluid">
       <div class="card-modern">
         <div class="section-header">
           <i class="pi pi-filter"></i>
@@ -20,7 +20,7 @@
                 <input 
                   type="text" 
                   class="form-control search-input" 
-                  placeholder="البحث في الأخبار..."
+                  placeholder="ابحث في الأخبار..."
                   [(ngModel)]="searchKeyword"
                   (input)="onFilterChange()"
                 >
@@ -32,7 +32,7 @@
                 [(ngModel)]="selectedYear"
                 (change)="onFilterChange()"
               >
-                <option value="" >اختر السنة...</option>
+                <option value="">كل السنوات</option>
                 <option *ngFor="let year of availableYears" [value]="year">
                   {{ year }}
                 </option>
@@ -43,9 +43,8 @@
                 class="form-select filter-select" 
                 [(ngModel)]="selectedMonth"
                 (change)="onFilterChange()"
-                aria-placeholder="اختر الشهر..."
               >
-                <option value="" disabled selected hidden>اختر الشهر...</option>
+                <option value="">كل الأشهر</option>
                 <option *ngFor="let month of months; let i = index" [value]="i + 1">
                   {{ month }}
                 </option>
@@ -55,44 +54,52 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
 
-  <!-- News Tabs -->
+  <!-- تبويبات الأخبار -->
   <section class="news-tabs-section py-2">
-    <div class="container">
+    <div class="container-fluid">
       <div class="card-modern">
-        <!-- Tab Navigation -->
+        <!-- التنقل بين التبويبات -->
         <div class="tab-navigation">
-          <button 
-            class="tab-button" 
+          <button
+            class="tab-button"
+            [class.active]="currentCategory === 'all'"
+            (click)="currentCategory = 'all'"
+          >
+            <i class="pi pi-list"></i>
+            كل الأخبار
+          </button>
+          <button
+            class="tab-button"
             [class.active]="currentCategory === 'students'"
             (click)="currentCategory = 'students'"
           >
             <i class="pi pi-users"></i>
             الطلاب
           </button>
-          <button 
-            class="tab-button" 
+          <button
+            class="tab-button"
             [class.active]="currentCategory === 'postgraduate'"
             (click)="currentCategory = 'postgraduate'"
           >
             <i class="pi pi-graduation-cap"></i>
             الدراسات العليا
           </button>
-          <button 
-            class="tab-button" 
+          <button
+            class="tab-button"
             [class.active]="currentCategory === 'board'"
             (click)="currentCategory = 'board'"
           >
             <i class="pi pi-building"></i>
-            المجلس والإدارة
+            مجلس الإدارة والإدارة
           </button>
         </div>
 
-        <!-- Tab Content -->
+        <!-- محتوى التبويبات -->
         <div class="tab-content">
           <div class="news-grid">
-            <div class="news-card" *ngFor="let news of getFilteredNewsByCategory(currentCategory)">
+            <div class="news-card" *ngFor="let news of paginatedNews" (click)="viewNewsDetails(news.id)">
               <div class="news-image-container">
                 <img [src]="news.image" [alt]="news.title" class="news-image">
                 <div class="news-date-badge">
@@ -113,11 +120,45 @@
                     </span>
                   </div>
                 </div>
-                <button class="read-more-btn" (click)="viewNewsDetails(news.id)">
+                <button class="read-more-btn">
                   اقرأ المزيد <i class="pi pi-arrow-left"></i>
                 </button>
               </div>
             </div>
+          </div>
+
+          <!-- التصفح -->
+          <div class="pagination-container" *ngIf="totalPages > 1">
+            <nav aria-label="تصفح الأخبار">
+              <ul class="pagination">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <button class="page-link" (click)="goToFirstPage()" [disabled]="currentPage === 1">
+                    <i class="pi pi-angle-double-left"></i>
+                  </button>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <button class="page-link" (click)="previousPage()" [disabled]="currentPage === 1">
+                    <i class="pi pi-chevron-left"></i>
+                  </button>
+                </li>
+                <li class="page-item" *ngFor="let page of pageNumbers" [class.active]="page === currentPage">
+                  <button class="page-link" *ngIf="page !== -1" (click)="goToPage(page)">
+                    {{ page }}
+                  </button>
+                  <span class="page-link disabled" *ngIf="page === -1">...</span>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <button class="page-link" (click)="nextPage()" [disabled]="currentPage === totalPages">
+                    <i class="pi pi-chevron-right"></i>
+                  </button>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <button class="page-link" (click)="goToLastPage()" [disabled]="currentPage === totalPages">
+                    <i class="pi pi-angle-double-right"></i>
+                  </button>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </div>

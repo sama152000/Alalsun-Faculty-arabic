@@ -1,21 +1,22 @@
-import { Component, ViewChild, ElementRef, HostListener, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 interface Department {
-  name: string; // اسم القسم
-  link: string; // رابط القسم
-  icon: string; // أيقونة القسم
-  color: string; // لون خلفية القسم
+  name: string;
+  link: string;
+  icon: string;
+  color: string;
 }
 
 @Component({
   selector: 'app-departments',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './departments.component.html',
   styleUrls: ['./departments.component.css']
 })
-export class DepartmentsComponent implements OnInit, OnDestroy {
+export class DepartmentsComponent implements OnInit, AfterViewInit {
   @ViewChild('sliderContainer') sliderContainer!: ElementRef;
 
   departments: Department[] = [
@@ -74,46 +75,40 @@ export class DepartmentsComponent implements OnInit, OnDestroy {
   maxSlides = 0;
   dotsArray: number[] = [];
   cardsPerView = 4;
-  autoSlideInterval: any;
-  isTransitioning = false;
-  baseSlides = 8; // Number of slides for one set of departments
-  totalSlides = 24; // 3 sets of 8 departments
+
+  private slideIntervalId: any;
+
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.baseSlides = this.departments.length;
-    this.totalSlides = this.departments.length * 3;
-    
-    // تهيئة المؤقت لتحريك الشرائح تلقائيًا كل 3 ثواني
-    this.autoSlideInterval = setInterval(() => {
-      this.slideRight();
-    }, 3000);
-  }
-
-  ngOnDestroy(): void {
-    // تنظيف المؤقت عند تدمير المكون
-    if (this.autoSlideInterval) {
-      clearInterval(this.autoSlideInterval);
-    }
+    // Removed setInterval to prevent ExpressionChangedAfterItHasBeenCheckedError
   }
 
   ngAfterViewInit() {
     setTimeout(() => {
       this.calculateSlider();
       this.updateDotsArray();
-      // Start at the middle set (second set of departments) for seamless infinite loop
-      this.currentSlide = this.baseSlides;
-      this.updateSliderPosition(false);
     }, 0);
+
+    // If auto sliding is needed, use this with ChangeDetectorRef to avoid ExpressionChangedAfterItHasBeenCheckedError
+    this.slideIntervalId = setInterval(() => {
+      this.slideRight();
+      this.cdr.detectChanges();
+    }, 1000);
+  }
+
+  ngOnDestroy() {
+    if (this.slideIntervalId) {
+      clearInterval(this.slideIntervalId);
+    }
   }
 
   @HostListener('window:resize')
   onResize() {
-    // إعادة حساب الشرائح عند تغيير حجم النافذة
     this.calculateSlider();
     this.updateDotsArray();
   }
 
-  // حساب عدد الشرائح وأبعادها بناءً على عرض الحاوية
   calculateSlider() {
     const containerWidth = this.sliderContainer?.nativeElement.offsetWidth || 1200;
     
@@ -122,107 +117,40 @@ export class DepartmentsComponent implements OnInit, OnDestroy {
       this.slideWidth = 280;
     } else if (window.innerWidth <= 768) {
       this.cardsPerView = 2;
-      this.slideWidth = 260;
+      this.slideWidth = 240;
     } else if (window.innerWidth <= 992) {
       this.cardsPerView = 3;
-      this.slideWidth = 240;
+      this.slideWidth = 220;
     } else {
       this.cardsPerView = 4;
       this.slideWidth = 220;
     }
     
-    // Ensure current slide is within the middle set
-    if (this.currentSlide < this.baseSlides) {
-      this.currentSlide += this.baseSlides;
-    } else if (this.currentSlide >= this.baseSlides * 2) {
-      this.currentSlide -= this.baseSlides;
-    }
+    this.maxSlides = Math.max(0, this.departments.length - this.cardsPerView);
+    this.currentSlide = Math.min(this.currentSlide, this.maxSlides);
   }
 
-  // تحديث مصفوفة النقاط للتنقل بين الشرائح
   updateDotsArray() {
-    this.dotsArray = Array(this.baseSlides).fill(0).map((_, i) => i);
+    this.dotsArray = Array(Math.max(1, this.maxSlides + 1)).fill(0).map((_, i) => i);
   }
 
-  // Update slider position with or without transition
-  updateSliderPosition(withTransition: boolean = true) {
-    const track = this.sliderContainer?.nativeElement.querySelector('.departments-track');
-    if (track) {
-      track.style.transition = withTransition ? 'transform 0.4s ease-in-out' : 'none';
-      track.style.transform = `translateX(-${this.currentSlide * this.slideWidth}px)`;
-    }
-  }
-
-  // تحريك الشريحة إلى اليسار (الشرائح السابقة) مع حلقة لا نهائية
   slideLeft() {
-    if (this.isTransitioning) return;
-    
-    this.isTransitioning = true;
-    this.currentSlide--;
-    
-    // Check if we've gone past the first slide of the middle set
-    if (this.currentSlide < this.baseSlides) {
-      // Move with transition first
-      this.updateSliderPosition(true);
-      
-      // After transition, jump to end of second set
-      setTimeout(() => {
-        this.currentSlide = this.baseSlides * 2 - 1;
-        this.updateSliderPosition(false);
-        this.isTransitioning = false;
-      }, 400);
+    if (this.currentSlide > 0) {
+      this.currentSlide--;
     } else {
-      this.updateSliderPosition(true);
-      setTimeout(() => {
-        this.isTransitioning = false;
-      }, 400);
+      this.currentSlide = this.maxSlides;
     }
   }
 
-  // تحريك الشريحة إلى اليمين (الشرائح التالية) مع حلقة لا نهائية
   slideRight() {
-    if (this.isTransitioning) return;
-    
-    this.isTransitioning = true;
-    this.currentSlide++;
-    
-    // Check if we've gone past the last slide of the middle set
-    if (this.currentSlide >= this.baseSlides * 2) {
-      // Move with transition first
-      this.updateSliderPosition(true);
-      
-      // After transition, jump to start of second set
-      setTimeout(() => {
-        this.currentSlide = this.baseSlides;
-        this.updateSliderPosition(false);
-        this.isTransitioning = false;
-      }, 400);
+    if (this.currentSlide < this.maxSlides) {
+      this.currentSlide++;
     } else {
-      this.updateSliderPosition(true);
-      setTimeout(() => {
-        this.isTransitioning = false;
-      }, 400);
+      this.currentSlide = 0;
     }
   }
 
-  // الانتقال إلى شريحة محددة
-  goToSlide(index: number) {
-    if (this.isTransitioning) return;
-    
-    if (index >= 0 && index < this.baseSlides) {
-      this.isTransitioning = true;
-      // Set to the middle set + desired index
-      this.currentSlide = this.baseSlides + index;
-      this.updateSliderPosition(true);
-      
-      setTimeout(() => {
-        this.isTransitioning = false;
-      }, 400);
-    }
-  }
-
-  // Get current active dot index
-  get activeDotIndex(): number {
-    return (this.currentSlide - this.baseSlides + this.baseSlides) % this.baseSlides;
+  goToSlide(slideIndex: number) {
+    this.currentSlide = Math.max(0, Math.min(slideIndex, this.maxSlides));
   }
 }

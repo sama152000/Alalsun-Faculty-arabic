@@ -1,10 +1,10 @@
-<section class="departments-section" dir="rtl">
+<section class="departments-section">
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
         <h2 class="section-title-dark">الأقسام الأكاديمية</h2>
         <p class="section-subtitle-dark">
-          استكشف أقسامنا واكتشف البرامج والدورات والفرص الوظيفية
+          استكشف أقسامنا واكتشف البرامج، الدورات، والفرص المهنية
         </p>
       </div>
     </div>
@@ -12,43 +12,40 @@
     <div class="row">
       <div class="col-12">
         <div class="departments-slider-container">
-          <button class="slider-arrow slider-arrow-left" 
-                  (click)="slideLeft()" 
-                  [disabled]="isTransitioning"
-                  aria-label="الشريحة السابقة">
+          <button class="slider-arrow slider-arrow-left" (click)="slideLeft()" [disabled]="currentSlide === 0">
             <i class="pi pi-chevron-left"></i>
           </button>
           
           <div class="departments-slider" #sliderContainer>
-            <div class="departments-track">
-              <div *ngFor="let department of departments.concat(departments).concat(departments)"
-                   class="department-card"
-                   [style.background]="department.color">
+            <div class="departments-track" 
+                 [style.transform]="'translateX(' + (-currentSlide * slideWidth) + 'px)'">
+              <div
+                *ngFor="let department of departments.concat(departments)"
+                class="department-card"
+                [style.background]="department.color"
+                [routerLink]="department.link"
+                style="cursor: pointer;"
+              >
                 <div class="department-icon">
                   <i [class]="department.icon"></i>
                 </div>
                 <h3 class="department-title">{{ department.name }}</h3>
-                
-             
               </div>
             </div>
           </div>
           
-          <button class="slider-arrow slider-arrow-right" 
-                  (click)="slideRight()" 
-                  [disabled]="isTransitioning"
-                  aria-label="الشريحة التالية">
+          <button class="slider-arrow slider-arrow-right" (click)="slideRight()" [disabled]="currentSlide >= maxSlides">
             <i class="pi pi-chevron-right"></i>
           </button>
         </div>
         
         <div class="slider-dots">
-          <button *ngFor="let dot of dotsArray; let i = index"
-                  class="slider-dot"
-                  [class.active]="i === activeDotIndex"
-                  (click)="goToSlide(i)"
-                  [attr.aria-label]="'الانتقال إلى الشريحة ' + (i + 1)">
-          </button>
+          <span 
+            *ngFor="let dot of dotsArray; let i = index"
+            class="slider-dot"
+            [class.active]="i === currentSlide"
+            (click)="goToSlide(i)"
+          ></span>
         </div>
       </div>
     </div>

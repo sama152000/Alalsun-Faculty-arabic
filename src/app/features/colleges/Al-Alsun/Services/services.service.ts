@@ -7,11 +7,12 @@ import { FacultyService, ServiceCategory } from '../model/services.model';
 })
 export class FacultyServiceService {
   private services: FacultyService[] = [
+    // === 1. مركز الألسن للغات والترجمة (المركز الرئيسي) ===
     {
       id: 'language-translation-center',
       name: 'مركز الألسن للغات والترجمة',
       shortName: 'مركز اللغات',
-      description: 'مركز رائد لتعليم اللغات وخدمات الترجمة، يقدم برامج تدريبية واستشارات لغوية.',
+      description: 'مركز رائد لتعليم اللغات وخدمات الترجمة، يوفر برامج تدريبية واستشارات لغوية.',
       image: './assets/service1.png',
       icon: 'pi pi-globe',
       establishedDate: '25 سبتمبر 2017',
@@ -23,10 +24,12 @@ export class FacultyServiceService {
         email: 'language.center@alsun.luxor.edu.eg'
       },
       details: {
-        vision: 'تحقيق القيادة العلمية والتميز في مجالات تدريس اللغات والترجمة محلياً ودولياً لتحقيق التواصل المعرفي والثقافي مع الدول حول العالم بما يخدم المجتمع ويساهم في مواجهة التحديات الحالية والمستقبلية.',
+        vision: 'تحقيق الريادة العلمية والتميز في مجالات تعليم اللغات والترجمة محليًا وعالميًا من أجل تحقيق التواصل المعرفي والثقافي مع دول العالم بما يخدم المجتمع ويساهم في مواجهة التحديات الحالية والمستقبلية.',
         objectives: [
-          'إعداد وتنفيذ برامج تدريبية في اللغات المختلفة التي تُدرس في أقسام كلية اللغات، باستخدام أحدث الطرق التعليمية والتكنولوجيا الحديثة في مجال اللغات والترجمة للجامعة والجهات الخارجية.',
-          'تقديم استشارات لغوية لجميع اللغات التي تُدرس في الكلية.'
+          'إعداد وتنفيذ برامج تدريبية في اللغات المختلفة التي تُدرس في أقسام كلية الألسن، باستخدام أحدث الأساليب التعليمية والتكنولوجيا الحديثة في مجال اللغات والترجمة للجامعة والجهات الخارجية.',
+          'تقديم استشارات لغوية لجميع اللغات التي تُدرس في الكلية.',
+          'المساهمة في ضمان جودة تعليمية متميزة مع الالتزام بالتطوير المستمر والأداء الفعال للمركز، واكتساب ثقة المجتمع في قدرات الخريجين، بهدف ضمان الجودة وتحقيق التنافسية على المستويات المحلية والإقليمية والدولية في مجالات اللغات والترجمة.',
+          'المساهمة في خدمة المجتمع والبيئة، ودعم خطط التنمية، وتعزيز المساهمات المجتمعية.'
         ],
         staff: [
           {
@@ -34,49 +37,49 @@ export class FacultyServiceService {
             name: 'أ.د. محمود النوبي أحمد',
             position: 'رئيس مجلس الإدارة',
             role: 'رئيس مجلس إدارة مركز الألسن للغات والترجمة',
-            photo: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=400&h=500'
+            photo: './assets/Picture1.jpg'
           },
           {
             id: 'mohammed-farouk',
-            name: 'د. محمد فرج محمد بدر',
+            name: 'د. محمد فاروق محمد بدر',
             position: 'مدير المركز',
             role: 'مدير المركز',
-            photo: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400&h=500'
+            photo: './assets/userr.png'
           },
           {
             id: 'asmaa-salah',
             name: 'د. أسماء صلاح عبد الرازق',
-            position: 'منسقة الأنشطة',
-            role: 'منسقة أنشطة التدريب والدورات',
-            photo: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=400&h=500'
+            position: 'منسق الأنشطة',
+            role: 'منسق أنشطة التدريب والدورات',
+            photo: './assets/userr.png'
           },
           {
             id: 'hany-ali',
             name: 'د. هاني علي',
             position: 'منسق الأنشطة',
             role: 'منسق أنشطة الترجمة والتحرير اللغوي',
-            photo: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=400&h=500'
+            photo: './assets/userr.png'
           },
           {
             id: 'lamis-hassan',
-            name: 'د. لميس حسن البنا محمد',
-            position: 'منسقة الأنشطة',
-            role: 'منسقة أنشطة الاختبارات اللغوية',
-            photo: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=400&h=500'
+            name: 'د. لميس حسان البنا محمد',
+            position: 'منسق الأنشطة',
+            role: 'منسق أنشطة اختبارات اللغة',
+            photo: './assets/userr.png'
           },
           {
             id: 'shaimaa-abdallah',
             name: 'الأستاذة شيماء عبد الله',
             position: 'مسؤول إداري',
             role: 'مسؤول إداري',
-            photo: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400&h=500'
+            photo: './assets/userr.png'
           },
           {
             id: 'salwa-sanousi',
             name: 'الأستاذة سلوى سنوسي سليمان',
-            position: 'مسؤولة مالية',
-            role: 'مسؤولة مالية',
-            photo: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=400&h=500'
+            position: 'مسؤول مالي',
+            role: 'مسؤول مالي',
+            photo: './assets/userr.png'
           }
         ],
         activities: [
@@ -89,243 +92,198 @@ export class FacultyServiceService {
           {
             id: 'translation-editing',
             name: 'الترجمة والتحرير اللغوي',
-            description: 'خدمات ترجمة وتحرير لغوي احترافية',
+            description: 'خدمات الترجمة والتحرير اللغوي الاحترافية',
             coordinator: 'د. هاني علي'
           },
           {
             id: 'language-testing',
-            name: 'الاختبارات اللغوية',
-            description: 'اختبارات وتقييم كفاءة لغوية شاملة',
-            coordinator: 'د. لميس حسن البنا محمد'
+            name: 'اختبارات اللغة',
+            description: 'اختبارات وتقييمات شاملة للكفاءة اللغوية',
+            coordinator: 'د. لميس حسان البنا محمد'
           }
+        ],
+        introduction: 'مركز الألسن للغات والترجمة بجامعة الأقصر هو وحدة خاصة تسعى دائمًا لتكون الخيار الأول للمتعلمين في مجالات اللغة والترجمة والتنمية البشرية. وهو ملتزم بتقديم منتج تنافسي على المستويات المحلية والإقليمية والدولية في مجالات الترجمة واللغات.',
+        certificatesAndCourses: [
+          'يقدم شهادة IELTS للغة الإنجليزية المعتمدة من المجلس الثقافي البريطاني في القاهرة، بالإضافة إلى دورات في مستويات مختلفة للغة الإنجليزية.',
+          'يوفر دورات تحضيرية لاجتياز اختبار TOEFL في اللغة الإنجليزية.',
+          'يوفر دورات تحضيرية لاجتياز اختبار DELF في اللغة الفرنسية.',
+          'يوفر دورات تدريبية في التدقيق اللغوي من قسم اللغة العربية.',
+          'يوفر دورات تدريبية في تدريس المواد الأكاديمية باللغة الإنجليزية (الرياضيات والعلوم).',
+          'يوفر دورات تدريبية في اللغة الألمانية.',
+          'يوفر دورات تدريبية في اللغة الصينية.',
+          'يوفر دورات تدريبية في اللغة الإيطالية.',
+          'يترجم المركز جميع أنواع الشهادات الرسمية، والوثائق، والأطروحات العلمية من العربية إلى لغات مختلفة والعكس.'
+        ],
+        centerObjectives: [
+          'إعداد برامج خاصة لرفع مستوى اللغات التي تُدرس في المركز للطلاب وغيرهم.',
+          'ضمان الجودة والتطوير المستمر بما يتماشى مع متطلبات التنمية الوطنية.',
+          'المراجعة اللغوية للبحوث والأطروحات العلمية في مجال المركز.',
+          'الربط الثقافي بين المركز ومراكز الجامعات الأخرى في شؤون اللغة، وكذلك سوق العمل الخارجي.',
+          'إقامة دورات تحضيرية لاختبار TOEFL المحلي وتدريب الطلاب من داخل وخارج الجامعة.',
+          'تصميم برامج تدريبية في إلقاء المحاضرات باللغات التي تُدرس في أقسام كلية الألسن بالأقصر.'
         ]
       }
     },
+
+    // === 2. وحدة ضمان الجودة والاعتماد (كمركز منفصل) ===
     {
-      id: 'confucius-classroom',
-      name: 'فصل كونفوشيوس',
-      shortName: 'فصل كونفوشيوس',
-      description: 'مؤسسة تعليمية غير ربحية مخصصة لنشر اللغة والثقافة الصينية حول العالم.',
-      image: './assets/service2.jpg',
-      icon: 'pi pi-star',
-      establishedDate: '2019',
-      category: ServiceCategory.CULTURAL_CENTER,
-      route: '/services/confucius-classroom',
+      id: 'quality-assurance-unit',
+      name: 'وحدة ضمان الجودة والاعتماد',
+      shortName: 'وحدة الجودة',
+      description: 'تضمن تحسين جودة التعليم بشكل مستمر والتوافق مع المعايير الوطنية والدولية.',
+      image: './assets/img.png',
+      icon: 'pi pi-check-circle',
+      establishedDate: '2018',
+      category: ServiceCategory.LANGUAGE_CENTER,
+      route: '/services/quality-assurance-unit',
       contact: {
-        facebook: 'https://www.facebook.com/profile.php?id=100064953162513',
-        email: 'confucius@alsun.luxor.edu.eg'
+        email: 'quality@alsun.luxor.edu.eg'
       },
       details: {
-        mission: 'تم إنشاء فصل كونفوشيوس كمؤسسة تعليمية غير ربحية بهدف نشر اللغة والثقافة الصينية حول العالم. تم افتتاح فصل كونفوشيوس في جامعة الأقصر عام 2019 بالتعاون مع فصل كونفوشيوس الرئيسي وجامعة العاصمة العادية في الصين.',
-        programs: [
-          {
-            id: 'chinese-language',
-            name: 'دورات اللغة الصينية',
-            description: 'برامج تعلم اللغة الصينية الشاملة لجميع المستويات',
-            duration: 'نظام الفصل الدراسي',
-            requirements: ['شهادة التعليم الأساسي', 'الالتزام بالحضور']
-          },
-          {
-            id: 'cultural-exchange',
-            name: 'برامج التبادل الثقافي',
-            description: 'برامج تبادل طلابي وأكاديمي مع الجامعات الصينية',
-            duration: 'متغير',
-            requirements: ['التميز الأكاديمي', 'كفاءة لغوية']
-          }
+        description: 'تسعى وحدة ضمان الجودة والاعتماد بكلية الألسن إلى رفع مستوى جودة التعليم وتطوير العملية التعليمية بشكل مستمر وفقًا للمعايير الوطنية التي تتماشى مع المعايير الدولية، لتحقيق رؤية الكلية ورسالتها وأهدافها.',
+        objectives: [
+          'تطوير وتنفيذ سياسات وإجراءات ضمان الجودة.',
+          'مراقبة البرامج الأكاديمية لضمان الامتثال لمعايير الاعتماد.',
+          'إجراء تدقيقات داخلية وإعداد تقارير الاعتماد.',
+          'تدريب أعضاء هيئة التدريس والموظفين على معايير الجودة وأفضل الممارسات.'
         ],
+        coordinator: 'د. يوسف عباس علي',
         activities: [
           {
-            id: 'cultural-events',
-            name: 'فعاليات ثقافية صينية',
-            description: 'احتفالات ومهرجانات ثقافية صينية دورية'
+            id: 'accreditation-prep',
+            name: 'التحضير للاعتماد',
+            description: 'دعم عمليات الاعتماد الوطنية والدولية'
           },
           {
-            id: 'language-competitions',
-            name: 'مسابقات اللغة الصينية',
-            description: 'مسابقات سنوية لتشجيع تعلم اللغة الصينية'
-          }
-        ],
-        achievements: [
-          {
-            id: 'partnership-2019',
-            title: 'شراكة مع جامعة العاصمة العادية',
-            description: 'إقامة شراكة رسمية مع جامعة العاصمة العادية في الصين',
-            date: new Date('2019-01-01')
+            id: 'quality-training',
+            name: 'ورش عمل تدريبية على الجودة',
+            description: 'برامج تدريبية حول معايير الجودة والتميز التعليمي'
           }
         ]
       }
     },
+
+    // === 3. وحدة القياس والتقويم ===
     {
-      id: 'alsun-journal',
-      name: 'مجلة الألسن للغات والعلوم الإنسانية',
-      shortName: 'مجلة الألسن',
-      description: 'مجلة فصلية مرجعية تصدر عن كلية الألسن، حاصلة على تصنيف 7/7 في تقييمات يوليو 2024.',
-      image: './assets/service3.jpg',
-      icon: 'pi pi-book',
-      establishedDate: 'خريف 2019',
-      category: ServiceCategory.ACADEMIC_JOURNAL,
-      route: '/services/alsun-journal',
+      id: 'measurement-evaluation-unit',
+      name: 'وحدة القياس والتقويم',
+      shortName: 'وحدة التقويم',
+      description: 'تعزز أنظمة التقييم الحديثة والتصحيح الإلكتروني لتحسين جودة التعليم.',
+      image: './assets/img.png',
+      icon: 'pi pi-chart-line',
+      establishedDate: '2020',
+      category: ServiceCategory.LANGUAGE_CENTER,
+      route: '/services/measurement-evaluation-unit',
       contact: {
-        website: 'https://maks.journals.ekb.eg/',
-        email: 'journal@alsun.luxor.edu.eg'
+        email: 'evaluation@alsun.luxor.edu.eg'
       },
       details: {
-        mission: 'مجلة الألسن للغات والعلوم الإنسانية هي مجلة فصلية مرجعية تصدر عن كلية الألسن بجامعة الأقصر. صدر العدد الأول في خريف 2019 (أكتوبر-نوفمبر-ديسمبر).',
-        specifications: [
-          {
-            label: 'تكرار النشر',
-            value: 'فصلي',
-            icon: 'pi pi-calendar'
-          },
-          {
-            label: 'مراجعة التقييم',
-            value: 'نعم',
-            icon: 'pi pi-check-circle'
-          },
-          {
-            label: 'التصنيف',
-            value: '7/7 (يوليو 2024)',
-            icon: 'pi pi-star'
-          },
-          {
-            label: 'العدد الأول',
-            value: 'خريف 2019',
-            icon: 'pi pi-clock'
-          }
+        description: 'بناءً على قرارات المجلس الأعلى للجامعات بتعميم التصحيح الإلكتروني في الجامعات، تلعب وحدة القياس والتقويم دورًا رئيسيًا في نشر ثقافة تطوير تقييم الطلاب وأنظمة الامتحانات كوسيلة لتحسين النظام التعليمي وضمان جودته.',
+        objectives: [
+          'تنفيذ أنظمة التصحيح الإلكتروني عبر جميع الأقسام.',
+          'تطوير آليات تقييم عادلة وشفافة.',
+          'تدريب أعضاء هيئة التدريس على تقنيات التقييم الحديثة.',
+          'تحليل نتائج الامتحانات لتحسين طرق التعليم.'
         ],
-        editorialBoard: [
+        coordinator: 'د. رمضان عيد',
+        activities: [
           {
-            id: 'mahmoud-elnoubi-editor',
-            name: 'أ.د. محمود النوبي أحمد',
-            position: 'رئيس مجلس الإدارة',
-            role: 'رئيس التحرير',
-            affiliation: 'كلية الألسن، جامعة الأقصر'
+            id: 'electronic-correction',
+            name: 'التصحيح الإلكتروني للامتحانات',
+            description: 'التنفيذ الكامل لتسجيل درجات الامتحانات رقميًا'
           },
           {
-            id: 'youssef-abbas',
-            name: 'أ.د. يوسف عباس علي',
-            position: 'نائب رئيس مجلس الإدارة',
-            role: 'نائب رئيس التحرير',
-            affiliation: 'كلية الألسن، جامعة الأقصر'
+            id: 'assessment-workshops',
+            name: 'ورش عمل تصميم التقييم',
+            description: 'تدريب على إنشاء أسئلة امتحانات فعالة'
+          }
+        ]
+      }
+    },
+
+    // === 4. وحدة تكنولوجيا المعلومات (IT) ===
+    {
+      id: 'it-unit',
+      name: 'وحدة تكنولوجيا المعلومات (IT)',
+      shortName: 'وحدة IT',
+      description: 'توفر البنية التحتية التكنولوجية والخدمات الرقمية لدعم التعليم والتعلّم والإدارة.',
+      image: './assets/img.png',
+      icon: 'pi pi-desktop',
+      establishedDate: '2019',
+      category: ServiceCategory.LANGUAGE_CENTER,
+      route: '/services/it-unit',
+      contact: {
+        email: 'it.support@alsun.luxor.edu.eg',
+        phone: '095-238-1234'
+      },
+      details: {
+        description: 'تهدف وحدة تكنولوجيا المعلومات إلى تزويد الكلية وأعضائها - من أعضاء هيئة التدريس، والموظفين، والطلاب - بخدمات تكنولوجية متنوعة، وتقديم الدعم اللازم لتنظيم عمليات التعليم والتعلّم بناءً على أنظمة وتكنولوجيا المعلومات. كما تفعل البريد الإلكتروني الرسمي للجامعة كأداة تواصل رئيسية وتؤسس مكتبة إلكترونية.',
+        objectives: [
+          'صيانة وتحديث البنية التحتية لتكنولوجيا المعلومات عبر الكلية.',
+          'توفير الدعم الفني لمنصات التعليم الرقمية.',
+          'إدارة البريد الإلكتروني الرسمي للجامعة وأنظمة التواصل.',
+          'تطوير وصيانة المكتبة الرقمية للكلية والموارد عبر الإنترنت.'
+        ],
+        coordinator: 'المهندس خالد سعيد',
+        activities: [
+          {
+            id: 'tech-support',
+            name: 'مكتب الدعم الفني',
+            description: 'دعم تقني على مدار الساعة لأعضاء هيئة التدريس والطلاب'
           },
           {
-            id: 'asmaa-salah-editor',
-            name: 'د. أسماء صلاح عبد الرازق',
-            position: 'مدير التحرير',
-            role: 'مدير التحرير',
-            affiliation: 'كلية الألسن، جامعة الأقصر'
+            id: 'digital-library',
+            name: 'خدمات المكتبة الرقمية',
+            description: 'الوصول إلى الكتب الإلكترونية، والمجلات، وقواعد بيانات البحث'
           },
           {
-            id: 'reham-shoukry',
-            name: 'د. ريهام شكري عبد السلام',
-            position: 'مساعد مدير التحرير',
-            role: 'مساعد مدير التحرير',
-            affiliation: 'كلية الألسن، جامعة الأقصر'
+            id: 'lms-management',
+            name: 'نظام إدارة التعلّم',
+            description: 'دعم منصات Moodle والدورات التعليمية عبر الإنترنت'
+          }
+        ]
+      }
+    },
+
+    // === 5. وحدة متابعة الخريجين ===
+    {
+      id: 'graduate-followup-unit',
+      name: 'وحدة متابعة الخريجين',
+      shortName: 'وحدة الخريجين',
+      description: 'تربط الخريجين بسوق العمل وتوفر فرص التطوير المهني المستمر.',
+      image: './assets/img.png',
+      icon: 'pi pi-users',
+      establishedDate: '2021',
+      category: ServiceCategory.LANGUAGE_CENTER,
+      route: '/services/graduate-followup-unit',
+      contact: {
+        email: 'alumni@alsun.luxor.edu.eg',
+        website: 'https://alumni.alsun.luxor.edu.eg'
+      },
+      details: {
+        description: 'تهدف وحدة متابعة الخريجين إلى رفع المستوى الفني والمهني لطلاب وخريجي كلية الألسن، وتعزيز كفاءتهم، وتطوير قدراتهم ليصبحوا قادرين على المنافسة في سوق العمل. تقوم بإنشاء قنوات تواصل مستمرة مع الخريجين، ومتابعة أدائهم، وتحسينه من خلال برامج تدريبية، وورش عمل، وأنشطة متنوعة.',
+        objectives: [
+          'بناء قاعدة بيانات شاملة وشبكة تواصل للخريجين.',
+          'تنظيم ورش عمل تطوير مهني ومعارض وظيفية.',
+          'تتبع معدلات توظيف الخريجين وتقدمهم المهني.',
+          'تقديم برامج تعليم مدى الحياة وشهادات للخريجين.'
+        ],
+        coordinator: 'د. صفاء علي',
+        activities: [
+          {
+            id: 'career-fair',
+            name: 'معرض الوظائف السنوي',
+            description: 'يربط الخريجين بأصحاب العمل في قطاعات اللغة والترجمة'
           },
           {
-            id: 'ramadan-eid',
-            name: 'د. رمضان عيد',
-            position: 'محرر لغوي',
-            role: 'محرر لغوي',
-            affiliation: 'كلية الألسن، جامعة الأقصر'
+            id: 'alumni-mentorship',
+            name: 'برنامج الإرشاد للخريجين',
+            description: 'يقوم خريجون كبار بإرشاد الطلاب الحاليين'
           },
           {
-            id: 'lamis-hassan-editor',
-            name: 'د. لميس حسن البنا محمد',
-            position: 'محررة لغوية',
-            role: 'محررة لغوية',
-            affiliation: 'كلية الألسن، جامعة الأقصر'
-          },
-          {
-            id: 'arwa-ahmed',
-            name: 'الأستاذة أروى أحمد حسن',
-            position: 'محررة لغوية',
-            role: 'محررة لغوية',
-            affiliation: 'كلية الألسن، جامعة الأقصر'
-          },
-          {
-            id: 'baleegh-hamdy',
-            name: 'د. بليغ حمدي',
-            position: 'محرر فني',
-            role: 'محرر فني',
-            affiliation: 'كلية الألسن، جامعة الأقصر'
-          },
-          {
-            id: 'mosheera-mahmoud',
-            name: 'الأستاذة مشيرة محمود',
-            position: 'محررة فنية',
-            role: 'محررة فنية',
-            affiliation: 'كلية الألسن، جامعة الأقصر'
-          },
-          {
-            id: 'aya-said',
-            name: 'الأستاذة آية سعيد علي',
-            position: 'محررة صفحات',
-            role: 'محررة صفحات',
-            affiliation: 'كلية الألسن، جامعة الأقصر'
-          },
-          {
-            id: 'safaa-ali',
-            name: 'د. صفاء علي',
-            position: 'سكرتيرة التحرير',
-            role: 'سكرتيرة التحرير',
-            affiliation: 'كلية الألسن، جامعة الأقصر'
-          },
-          {
-            id: 'khaled-said',
-            name: 'الأستاذ خالد سعيد',
-            position: 'مسؤول مالي',
-            role: 'مسؤول تنفيذي',
-            affiliation: 'كلية الألسن، جامعة الأقصر'
-          },
-          {
-            id: 'randa-andria',
-            name: 'الأستاذة رندة أندريا أنور',
-            position: 'مسؤولة إدارية',
-            role: 'مسؤولة تنفيذية',
-            affiliation: 'كلية الألسن، جامعة الأقصر'
-          },
-          {
-            id: 'elena-tarasyuk',
-            name: 'أ.د. إلينا تاراسيوك',
-            position: 'عضو هيئة التحرير الخارجية',
-            role: 'عضو هيئة التحرير الخارجية',
-            affiliation: 'مؤسسة خارجية'
-          },
-          {
-            id: 'rosmarie-kalass',
-            name: 'أ.د. روزماري كالاس',
-            position: 'عضو هيئة التحرير الخارجية',
-            role: 'عضو هيئة التحرير الخارجية',
-            affiliation: 'مؤسسة خارجية'
-          },
-          {
-            id: 'mariam-albadi',
-            name: 'أ.د. مريم بنت سالم البادية',
-            position: 'عضو هيئة التحرير الخارجية',
-            role: 'عضو هيئة التحرير الخارجية',
-            affiliation: 'مؤسسة خارجية'
-          },
-          {
-            id: 'warda-bouiran',
-            name: 'أ.د. وردة بويران',
-            position: 'عضو هيئة التحرير الخارجية',
-            role: 'عضو هيئة التحرير الخارجية',
-            affiliation: 'مؤسسة خارجية'
-          },
-          {
-            id: 'hani-ismail',
-            name: 'أ.د. هاني إسماعيل محمد إسماعيل',
-            position: 'عضو هيئة التحرير الخارجية',
-            role: 'عضو هيئة التحرير الخارجية',
-            affiliation: 'مؤسسة خارجية'
-          },
-          {
-            id: 'rasha-aboudi',
-            name: 'أ.د. رشا محمد أبو ضي',
-            position: 'عضو هيئة التحرير الخارجية',
-            role: 'عضو هيئة التحرير الخارجية',
-            affiliation: 'مؤسسة خارجية'
+            id: 'professional-courses',
+            name: 'دورات التطوير المهني',
+            description: 'تدريب متخصص في الترجمة، والتفسير، والمهارات الناعمة'
           }
         ]
       }
@@ -365,10 +323,5 @@ export class FacultyServiceService {
       return of(true);
     }
     return of(false);
-  }
-
-  // Method to get Al-Alsun Journal specifically
-  getAlAlsunJournal(): Observable<FacultyService | undefined> {
-    return of(this.services.find(service => service.id === 'alsun-journal'));
   }
 }

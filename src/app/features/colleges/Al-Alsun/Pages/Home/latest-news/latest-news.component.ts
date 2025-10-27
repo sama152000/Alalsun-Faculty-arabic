@@ -1,18 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-
-interface NewsItem {
-  id: number;
-  title: string;
-  excerpt: string;
-  date: string;
-  image: string;
-  category: string;
-  author?: string;
-  priority?: boolean;
-}
+import { NewsService } from '../../../Services/news.service';
+import { NewsItem } from '../../../model/news.model';
 
 @Component({
   selector: 'app-latest-news',
@@ -22,53 +12,26 @@ interface NewsItem {
   styleUrls: ['./latest-news.component.css']
 })
 export class LatestNewsComponent implements OnInit, OnDestroy {
-  newsItems: NewsItem[] = [
-    {
-      id: 1,
-      title: 'مؤتمر عن الترجمة والتواصل الثقافي',
-      excerpt: 'يركز على الترجمة المتخصصة والحوار الثقافي. انضم إلى الخبراء من جميع أنحاء العالم لمناقشة مستقبل التواصل عبر الثقافات.',
-      date: '12 أكتوبر 2025',
-      image: 'https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=300',
-      category: 'مؤتمر',
-      author: 'د. سارة أحمد',
-      priority: true
-    },
-    {
-      id: 2,
-      title: 'افتتاح مختبر جديد للغة الألمانية',
-      excerpt: 'مجهز بتقنيات صوتية وبصرية حديثة. مرافق متطورة لتعزيز تجربة تعلم اللغة الألمانية.',
-      date: '3 نوفمبر 2025',
-      image: 'https://images.pexels.com/photos/8617733/pexels-photo-8617733.jpeg?auto=compress&cs=tinysrgb&w=300',
-      category: 'مرافق',
-      author: 'أ.د. مايكل فايبر'
-    },
-    {
-      id: 3,
-      title: 'منحة تبادل طلابي – فصل الكونفوشيوس',
-      excerpt: 'فرص دراسية في اللغة والثقافة الصينية. برنامج منح حصري للطلاب المتميزين.',
-      date: '1 ديسمبر 2025',
-      image: 'https://images.pexels.com/photos/5905709/pexels-photo-5905709.jpeg?auto=compress&cs=tinysrgb&w=300',
-      category: 'منحة',
-      author: 'د. لي وي',
-      priority: false
-    }
-  ];
+  newsItems: NewsItem[] = [];
 
-  // الخصائص المتعلقة بالوقت
+  // Time-related properties
   currentTime: Date = new Date();
   timezone: string = 'UTC+2';
   private timeInterval: any;
 
-  // خصائص الإحصائيات
+  // Statistics properties
   totalNews: number = 0;
   todayNews: number = 0;
   weeklyNews: number = 0;
 
+  constructor(private newsService: NewsService, private router: Router) {}
+
   ngOnInit(): void {
     this.updateTime();
     this.calculateStatistics();
-    
-    // تحديث الوقت كل ثانية
+    this.loadNews();
+
+    // Update time every second
     this.timeInterval = setInterval(() => {
       this.updateTime();
     }, 1000);
@@ -84,39 +47,44 @@ export class LatestNewsComponent implements OnInit, OnDestroy {
     this.currentTime = new Date();
   }
 
+  private loadNews(): void {
+    // Fetch recent news items from the service
+    this.newsItems = this.newsService.getRecentNews(3);
+  }
+
   private calculateStatistics(): void {
     const today = new Date();
     const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
 
     this.totalNews = this.newsItems.length;
-    
-    // لغرض التظاهر، محاكاة عدد الأخبار اليومية والأسبوعية
+
+    // For demo purposes, simulate today's and weekly news count
     this.todayNews = Math.floor(Math.random() * 3) + 1;
     this.weeklyNews = Math.floor(Math.random() * 10) + 5;
   }
 
-  // طريقة للتعامل مع النقر على "اقرأ المزيد"
+  // Method to handle read more click
   onReadMore(newsItem: NewsItem): void {
-    console.log('اقرأ المزيد عن:', newsItem.title);
-    // نفذ منطق التنقل أو النافذة هنا
+    console.log('Reading more about:', newsItem.title);
+    // Navigate to news detail page
+    this.router.navigate(['/news', newsItem.id]);
   }
 
-  // طريقة لتحميل المزيد من الأخبار
+  // Method to load more news
   onLoadMore(): void {
-    console.log('جارٍ تحميل المزيد من الأخبار...');
-    // نفذ وظيفة تحميل المزيد هنا
+    console.log('Loading more news...');
+    // Navigate to news page
+    this.router.navigate(['/news']);
   }
 
-  // طريقة للحصول على فئة لون التصنيف
+  // Method to get category color class
   getCategoryClass(category: string): string {
     const categoryClasses: { [key: string]: string } = {
-      'مؤتمر': 'category-conference',
-      'مرافق': 'category-facilities', 
-      'منحة': 'category-scholarship',
-      'أكاديمي': 'category-academic',
-      'بحث': 'category-research'
+      'students': 'category-students',
+      'postgraduate': 'category-postgraduate',
+      'board': 'category-board'
     };
-    
+
     return categoryClasses[category] || 'category-default';
   }
 }

@@ -10,6 +10,7 @@ import { QuickStatsComponent } from '../Home/quick-stats/quick-stats.component';
 import { ContactLocationComponent } from '../Home/contact-location/contact-location.component';
 import { FooterComponent } from "../shared/footer/footer.component";
 import { AlsunJournalComponent } from "./alsun-journal/alsun-journal.component";
+import { CollegeJournalComponent } from "./college-journal/college-journal.component";
 
 @Component({
   selector: 'app-Home',
@@ -26,7 +27,8 @@ import { AlsunJournalComponent } from "./alsun-journal/alsun-journal.component";
     QuickStatsComponent,
     ContactLocationComponent,
     FooterComponent,
-    AlsunJournalComponent
+    AlsunJournalComponent,
+    CollegeJournalComponent
 ],
   styleUrls: ['./Home.component.css']
 })
